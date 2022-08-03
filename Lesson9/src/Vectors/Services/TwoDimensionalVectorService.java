@@ -18,19 +18,10 @@ public final class TwoDimensionalVectorService
     }
 
     public static double getScalarProduct(final TwoDimensionalVector firstTwoDimensionalVector,
-                                              final TwoDimensionalVector secondTwoDimensionalVector,
-                                              int angleBetweenVectors)
+                                              final TwoDimensionalVector secondTwoDimensionalVector)
     {
-        if (angleBetweenVectors >= MIN_ANGLE_DEGREE && angleBetweenVectors <= MAX_ANGLE_DEGREE)
-        {
-            return getLength(firstTwoDimensionalVector) * getLength(secondTwoDimensionalVector) *
-                    Math.cos(angleBetweenVectors);
-        }
-        else
-        {
-            System.out.println("Косинус должен быть больше 0 и меньше 180 градусов");
-            return 0;
-        }
+        return firstTwoDimensionalVector.getCoordinateX() * secondTwoDimensionalVector.getCoordinateX() +
+                firstTwoDimensionalVector.getCoordinateY() * secondTwoDimensionalVector.getCoordinateY();
     }
 
     public static void outputVectorAdditions(final TwoDimensionalVector firstTwoDimensionalVector,

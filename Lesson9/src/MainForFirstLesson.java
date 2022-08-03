@@ -25,7 +25,7 @@ public class MainForFirstLesson
 
         System.out.println("\nСкалярное произведение: " +
                 TwoDimensionalVectorService.getScalarProduct(firstTwoDimensionalVector,
-                        firstTwoDimensionalVector, 40));
+                        firstTwoDimensionalVector));
 
         System.out.println("\nСложение векторов: ");
         TwoDimensionalVectorService.outputVectorAdditions(firstTwoDimensionalVector, secondTwoDimensionalVector);
@@ -60,7 +60,7 @@ public class MainForFirstLesson
 
         System.out.println("\nСкалярное произведение: " +
                 ThreeDimensionalVectorService.getScalarProduct(firstThreeDimensionalVector,
-                        secondThreeDimensionalVector, 40));
+                        secondThreeDimensionalVector));
 
         System.out.println("\nСложение векторов: ");
         ThreeDimensionalVectorService.outputVectorAdditions(firstThreeDimensionalVector, secondThreeDimensionalVector);

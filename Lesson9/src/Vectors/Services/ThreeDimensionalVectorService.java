@@ -21,19 +21,11 @@ public final class ThreeDimensionalVectorService
     }
 
     public static double getScalarProduct(final ThreeDimensionalVector firstThreeDimensionalVector,
-                                                final ThreeDimensionalVector secondThreeDimensionalVector,
-                                                final int angleBetweenVectors)
+                                                final ThreeDimensionalVector secondThreeDimensionalVector)
     {
-        if (angleBetweenVectors >= MIN_ANGLE_DEGREE && angleBetweenVectors <= MAX_ANGLE_DEGREE)
-        {
-            return getLength(firstThreeDimensionalVector) * getLength(secondThreeDimensionalVector) *
-                    Math.cos(angleBetweenVectors);
-        }
-        else
-        {
-            System.out.println("Косинус должен быть больше 0 и меньше 180 градусов");
-            return 0;
-        }
+        return firstThreeDimensionalVector.getCoordinateX() * secondThreeDimensionalVector.getCoordinateX() +
+                firstThreeDimensionalVector.getCoordinateY() * secondThreeDimensionalVector.getCoordinateY() +
+                firstThreeDimensionalVector.getCoordinateZ() * secondThreeDimensionalVector.getCoordinateZ();
     }
 
     public static void outputVectorAdditions(final ThreeDimensionalVector firstThreeDimensionalVector,

@@ -23,7 +23,7 @@ public class MainForSecondLesson
 
         System.out.println("\nСкалярное произведение: " +
                 VectorWithVariableCountOfCoordinatesService.getScalarProduct(firstVectorWithVariableCountOfCoordinates,
-                        secondVectorWithVariableCountOfCoordinates, 40));
+                        secondVectorWithVariableCountOfCoordinates));
 
         System.out.println("\nСложение векторов: ");
         VectorWithVariableCountOfCoordinatesService.outputVectorAdditions(firstVectorWithVariableCountOfCoordinates, secondVectorWithVariableCountOfCoordinates);

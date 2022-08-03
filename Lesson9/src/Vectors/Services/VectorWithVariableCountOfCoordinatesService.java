@@ -21,20 +21,17 @@ public final class VectorWithVariableCountOfCoordinatesService
 
     public static double getScalarProduct(
             final VectorWithVariableCountOfCoordinates firstVectorWithVariableCountOfCoordinates,
-            final VectorWithVariableCountOfCoordinates secondVectorWithVariableCountOfCoordinates,
-            int angleBetweenVectors)
+            final VectorWithVariableCountOfCoordinates secondVectorWithVariableCountOfCoordinates)
     {
-        if (angleBetweenVectors >= MIN_ANGLE_DEGREE && angleBetweenVectors <= MAX_ANGLE_DEGREE)
+        double sum = 0;
+        if (firstVectorWithVariableCountOfCoordinates.getLength() == secondVectorWithVariableCountOfCoordinates.getLength())
         {
-            return getLength(firstVectorWithVariableCountOfCoordinates) *
-                    getLength(secondVectorWithVariableCountOfCoordinates) *
-                    Math.cos(angleBetweenVectors);
+            for (int i = 0; i < firstVectorWithVariableCountOfCoordinates.getLength(); i++)
+            {
+                sum += firstVectorWithVariableCountOfCoordinates.getCoordinate(i) * secondVectorWithVariableCountOfCoordinates.getCoordinate(i);
+            }
         }
-        else
-        {
-            System.out.println("Косинус должен быть больше 0 и меньше 180 градусов");
-            return 0;
-        }
+        return sum;
     }
 
     public static void outputVectorAdditions(
