@@ -2,7 +2,7 @@ package SecondLesson;
 
 public class SecondLesson
 {
-    static boolean method(final String login, final String password, final String confirmPassword)
+    static boolean authentication(final String login, final String password, final String confirmPassword)
             throws WrongLoginException, WrongPasswordException
     {
         if (login == null || password == null || confirmPassword == null)

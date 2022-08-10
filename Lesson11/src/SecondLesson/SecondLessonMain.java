@@ -6,7 +6,7 @@ public class SecondLessonMain
     {
         try
         {
-            System.out.println(SecondLesson.method("Denis", "13 fasdfa", "13 fasdfa"));
+            System.out.println(SecondLesson.authentication("Denis", "13 fasdfa", "13 fasdfa"));
         }
         catch (WrongLoginException | WrongPasswordException exception)
         {
