@@ -22,6 +22,7 @@ public class Main
     public static void secondLesson()
     {
         Service service = new Service();
-        System.out.println();service.start();
+        System.out.println();
+        service.start();
     }
 }
