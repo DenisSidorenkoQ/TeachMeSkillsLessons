@@ -120,7 +120,7 @@ public class UniversityAnalyzer {
     public List<Student> getGraduatedExcellentStudents(Stream<Student> students) {
         return students.filter(student -> {
             return student.getSubjectMarks().stream().collect(Collectors.averagingDouble(SubjectMark::getMark)) >= 8
-                    && LocalDate.now().getYear() - student.getBirthday().getYear() == 21;
+                    && LocalDate.now().getYear() - student.getBirthday().getYear() >= 21;
         }).collect(Collectors.toList());
     }
 
