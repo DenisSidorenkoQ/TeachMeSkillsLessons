@@ -71,10 +71,10 @@ public class UniversityAnalyzer {
      * @return
      */
     public List<Student> sortStudentsByCountOfMarks(Stream<Student> students) {
-        List<Student> list = students.sorted(Comparator.comparing(student -> {
-            return student.getSubjectMarks().stream().map(SubjectMark::getMark).count();
-        }))
+        List<Student> list = students
+                .sorted(Comparator.comparing(student -> student.getSubjectMarks().stream().count()))
                 .collect(Collectors.toList());
+
         Collections.reverse(list);
         return list;
     }
