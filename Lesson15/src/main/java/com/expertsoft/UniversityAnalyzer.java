@@ -60,6 +60,7 @@ public class UniversityAnalyzer {
         List<Student> list = students.sorted(Comparator.comparing(student -> {
             return student.getSubjectMarks().stream().collect(Collectors.averagingDouble(SubjectMark::getMark));}))
                 .collect(Collectors.toList());
+
         return list.get(list.size() - 1);
     }
 
@@ -73,9 +74,12 @@ public class UniversityAnalyzer {
     public List<Student> sortStudentsByCountOfMarks(Stream<Student> students) {
         List<Student> list = students
                 .sorted(Comparator.comparing(student -> student.getSubjectMarks().stream().count()))
-                .collect(Collectors.toList());
+                .collect(Collectors.collectingAndThen(Collectors.toList(), l -> {
+                    Collections.reverse(l);
+                    return l;
+                }
+                ));
 
-        Collections.reverse(list);
         return list;
     }
 
@@ -91,6 +95,7 @@ public class UniversityAnalyzer {
         List<Integer> list = new ArrayList<>();
         map.entrySet().stream().sorted(Map.Entry.<Integer, Integer>comparingByValue())
                 .forEach((k) -> {list.add(k.getKey());});
+
         return list;
     }
 
@@ -149,6 +154,6 @@ public class UniversityAnalyzer {
     public List<Subject> getSubjectsThatHeadTeachesInHisDepartment(Department department) {
         Set<Subject> set1 = department.getHead().getTaughtSubjects();
         Set<Subject> set2 = department.getSubjects();
-        return set1.stream().filter(s -> set2.contains(s)).collect(Collectors.toList());
+        return set1.stream().filter(set2::contains).collect(Collectors.toList());
     }
 }
