@@ -1,10 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -13,18 +11,17 @@ public class DocumentService
 {
     private final Pattern DOCUMENT_NUMBER_PATTERN = Pattern.compile("([\\d]{4}\\-[a-zA-Z\\u0400-\\u04FF]{3}\\-){2}([\\d][a-zA-Z\\u0400-\\u04FF]){2}");
     private final Pattern TELEPHONE_NUMBER_PATTERN = Pattern.compile("\\+\\([\\d]{2}\\)[\\d]{7}");
+    private final Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z\\d]{5,10}@[a-z]{3,}\\.[a-z]{2,}");
 
-    private List<File> getFilesFromFolder(Path path) throws IOException
-    {
-        return Files.walk(path)
-                .filter(Files::isRegularFile)
-                .map(Path::toFile)
-                .collect(Collectors.toList());
+    private void patternMatcher(String info, Pattern pattern, Document document) {
+        Matcher matcher = pattern.matcher(info);
+        while (matcher.find()) {
+            document.addDocument(matcher.group());
+        }
     }
 
     public Map<String, Document> validationDocument(String pathToFolderWithDocument) throws IOException
     {
-        //D:\rep\TeachMeSkillsLessons\Lesson17\src\DocumentsFolder
 
         int count = 0;
         try (Scanner scanner = new Scanner(System.in)) {
@@ -36,7 +33,8 @@ public class DocumentService
             }
         }
 
-        List<File> list = getFilesFromFolder(Paths.get(pathToFolderWithDocument));
+        Util util = new Util();
+        List<File> list = util.getFilesFromFolder(Paths.get(pathToFolderWithDocument));
 
         if (list.size() == 0) {
             throw new IOException("Folder is empty");
@@ -71,15 +69,9 @@ public class DocumentService
 
             document[0] = new Document();
 
-            matcher[0] = DOCUMENT_NUMBER_PATTERN.matcher(info[0]);
-            while (matcher[0].find()) {
-                document[0].addDocument(matcher[0].group());
-            }
-
-            matcher[0] = TELEPHONE_NUMBER_PATTERN.matcher(info[0]);
-            while (matcher[0].find()) {
-                document[0].addDocument(matcher[0].group());
-            }
+            patternMatcher(info[0], DOCUMENT_NUMBER_PATTERN, document[0]);
+            patternMatcher(info[0], TELEPHONE_NUMBER_PATTERN, document[0]);
+            patternMatcher(info[0], EMAIL_PATTERN, document[0]);
 
             map.put(file.getName(), document[0]);
         });
@@ -88,3 +80,4 @@ public class DocumentService
         return map;
     }
 }
+

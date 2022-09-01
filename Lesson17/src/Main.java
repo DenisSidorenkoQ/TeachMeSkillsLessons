@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) throws IOException {
         firstLesson();
+        System.out.println("\n\n\n");
         secondLesson();
     }
 
