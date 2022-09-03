@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
     public class Parser {
         private final String EMPTY_FOLDER_MESSAGE = "Folder is empty";
         private final String INPUT_NUMBER_OF_FILE_MESSAGE = "Input number of file";
+        private final String CHOOSE_PARSING_METHOD_MESSAGE = "Choose a parsing method";
 
         public Parser() {
         }
@@ -24,18 +25,18 @@ import org.xml.sax.SAXException;
             List<File> fileList = util.getFilesFromFolder(Paths.get(pathToFolderWithDocument));
             int numberOfFile = 0;
             if (fileList.size() == 0) {
-                System.out.println("Folder is empty");
+                System.out.println(EMPTY_FOLDER_MESSAGE);
             }
 
             if (fileList.size() > 1) {
-                System.out.println("Input number of file");
+                System.out.println(INPUT_NUMBER_OF_FILE_MESSAGE);
                 try (Scanner scanner = new Scanner(System.in)){
                     numberOfFile = scanner.nextInt() - 1;
                 }
             }
 
             File FILE_FOR_READ = fileList.get(numberOfFile);
-            System.out.println("Choose a parsing method");
+            System.out.println(CHOOSE_PARSING_METHOD_MESSAGE);
 
             try (Scanner scanner = new Scanner(System.in)){
                 if (scanner.nextInt() == 0) {
