@@ -1,3 +1,5 @@
+package Parser;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -6,6 +8,8 @@ import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import Util.Util;
 import org.xml.sax.SAXException;
 
     public class Parser {

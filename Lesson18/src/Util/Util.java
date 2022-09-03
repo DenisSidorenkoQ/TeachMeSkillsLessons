@@ -1,7 +1,8 @@
+package Util;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -9,8 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Util {
-    public Util() {
-    }
 
     public List<File> getFilesFromFolder(Path path) throws IOException
     {
