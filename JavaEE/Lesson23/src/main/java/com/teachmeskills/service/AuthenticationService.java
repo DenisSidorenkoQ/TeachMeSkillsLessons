@@ -1,34 +1,44 @@
 package com.teachmeskills.service;
 
 import com.teachmeskills.repository.JdbcUserRepository;
+import com.teachmeskills.repository.UserRepository;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.Writer;
 import java.sql.Connection;
 
-public class AuthenticationService{
-    private Connection connection;
-    private JdbcUserRepository jdbcUserRepository;
-    public AuthenticationService(Connection connection) {
-        this.connection = connection;
-        jdbcUserRepository = new JdbcUserRepository(connection);
+public class AuthenticationService {
+    private final UserRepository userRepository;
+
+    public AuthenticationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    private boolean findUser(String username, String password) {
-        return jdbcUserRepository.findUser(username, password);
+    public boolean userIsExists(String username, String password) {
+        return userRepository.userIsExists(username, password);
     }
 
-    private boolean findUserByName(String username) {
-        return jdbcUserRepository.findUserByName(username);
+    public boolean findUserByName(String username) {
+        return userRepository.findUserByName(username);
     }
 
-    private String getPasswordByUsername(String username) {
-        return jdbcUserRepository.getPasswordByUsername(username);
-    }
-
-    public boolean checkUser(String username, String password){
-        if(findUserByName(username)) {
-            return getPasswordByUsername(username).equals(password);
+    public void authentication(HttpServletRequest req, HttpServletResponse resp) {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        try (Writer writer = resp.getWriter()){
+            if (userIsExists(username, password)) {
+                req.getServletContext().setAttribute("username", username);
+                req.getRequestDispatcher("/Output.jsp").forward(req, resp);
+            } else {
+                writer.write("Authorization Error");
+            }
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
         }
-        return false;
+
     }
 }

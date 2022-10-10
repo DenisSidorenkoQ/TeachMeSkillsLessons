@@ -3,7 +3,9 @@
 <%@ page import="com.teachmeskills.model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.io.Writer" %>
-<%@ page import="java.io.IOException" %><%--
+<%@ page import="java.io.IOException" %>
+<%@ page import="com.teachmeskills.service.AuthenticationService" %>
+<%@ page import="com.teachmeskills.service.OutputService" %><%--
   Created by IntelliJ IDEA.
   User: Denis
   Date: 09.10.2022
@@ -19,26 +21,14 @@
 <table>
 <tr>
     <%
-        Connection connection = (Connection) config.getServletContext().getAttribute("connection");
-        JdbcUserRepository jdbcUserRepository = new JdbcUserRepository(connection);
-        List<User> users = jdbcUserRepository.getAllUsers();
-
+        OutputService outputService =
+                (OutputService) request.getServletContext().getAttribute("outputService");
         String queryParameter = request.getParameter("parameter");
-        if (queryParameter != null) {
-            users = jdbcUserRepository.getAllUsers(queryParameter);
-        } else {
-            users = jdbcUserRepository.getAllUsers();
+        List<User> users = outputService.getAllUsers(queryParameter);
+
+        try (Writer writer = response.getWriter()) {
+            outputService.outputList(users, writer);
         }
-
-        Writer writer = response.getWriter();
-        users.stream().forEach(user -> {
-            try {
-                writer.write("<h1>" + user.getUsername() + "</h1>");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
     %>
 </tr>
 </table>

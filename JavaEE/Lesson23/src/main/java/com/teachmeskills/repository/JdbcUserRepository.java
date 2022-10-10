@@ -2,60 +2,56 @@ package com.teachmeskills.repository;
 
 import com.teachmeskills.model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JdbcUserRepository implements UserRepository{
-    private Connection connection;
-    private String FIND_ALL_USERS_SQL = "select * from users";
+public class JdbcUserRepository implements UserRepository {
+    private final Connection CONNECTION;
+    private final String FIND_ALL_USERS_SQL = "select * from users";
+    private final String FIND_ALL_USERS_BY_PARAMETER_SQL = "select login from users where login like ?";
+    private final String USER_IS_EXISTS_SQL = "select login from users where login=? and password=?";
+    private final String FIND_USER_BY_NAME_SQL = "select * from users where login=?";
+    private final String INSERT_NEW_USER_SQL = "insert into users values ( ?, ?)";
 
     public JdbcUserRepository(Connection connection) {
-        this.connection = connection;
+        CONNECTION = connection;
     }
 
     @Override
-    public boolean findUser(String login, String password) {
-        try (Statement statement = connection.createStatement()) {
-            String findUser = "select login from users where login='" + login + "' and password='" + password + "'";
-            ResultSet rs = statement.executeQuery(findUser);
+    public boolean userIsExists(String login, String password) {
+        try (PreparedStatement statement = CONNECTION.prepareStatement(USER_IS_EXISTS_SQL)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
 
-            if (rs.next()) {
-                return true;
-            }
-
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
         } catch (SQLException e) {
-        return false;
+            e.getStackTrace();
+            return false;
         }
-
-        return false;
     }
 
     @Override
     public boolean findUserByName(String login) {
-        try (Statement statement = connection.createStatement()){
-            String findUserByLogin = "select * from users where login='" + login + "'";
-            ResultSet rs = statement.executeQuery(findUserByLogin);
+        try (PreparedStatement statement = CONNECTION.prepareStatement(FIND_USER_BY_NAME_SQL)){
+            statement.setString(1, login);
 
-            if (rs.next()) {
-                final User user = new User(rs.getString("login"), rs.getString("password"));
-                return true;
-            }
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
         } catch (SQLException e) {
+            e.getStackTrace();
             return false;
         }
-        return false;
     }
 
     @Override
     public boolean insertNewUser(String login, String password) {
-        try (Statement statement = connection.createStatement()) {
-            String setInsertUser = "INSERT INTO users VALUES ('" + login + "','" + password + "')";
-            statement.executeUpdate(setInsertUser);
+        try (PreparedStatement statement = CONNECTION.prepareStatement(INSERT_NEW_USER_SQL)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+            statement.executeUpdate();
             return true;
         } catch (SQLException e) {
             return false;
@@ -63,50 +59,35 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public String getPasswordByUsername(String username) {
-        try (Statement statement = connection.createStatement()){
-            String getPasswordByUsername = "select password from users where login='" + username + "'";
-            ResultSet rs = statement.executeQuery(getPasswordByUsername);
-
-            if (rs.next()) {
-                return rs.getString("password");
-            }
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return "null";
-    }
-
-    @Override
     public List<User> getAllUsers() {
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = CONNECTION.createStatement()){
             ResultSet rs = statement.executeQuery(FIND_ALL_USERS_SQL);
-
             List<User> users = new ArrayList<>();
+
             while (rs.next()) {
                 users.add(new User(rs.getString("login")));
             }
             return users;
         } catch (SQLException e) {
             e.getStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 
     @Override
     public List<User> getAllUsers(String parameter) {
-        try (Statement statement = connection.createStatement()){
-            String findAllUsersByParameter ="select login from users where login like '" + parameter + "%'";
-            ResultSet rs = statement.executeQuery(findAllUsersByParameter);
-
+        try (PreparedStatement statement = CONNECTION.prepareStatement(FIND_ALL_USERS_BY_PARAMETER_SQL)) {
+            statement.setString(1, parameter + "%");
+            ResultSet rs = statement.executeQuery();
             List<User> users = new ArrayList<>();
+
             while (rs.next()) {
                 users.add(new User(rs.getString("login")));
             }
             return users;
         } catch (SQLException e) {
             e.getStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 }

@@ -9,13 +9,11 @@ import java.util.List;
 
 public interface UserRepository {
 
-    public boolean findUser(String login, String password);
+    public boolean userIsExists(String login, String password);
 
     boolean findUserByName(String login);
 
     boolean insertNewUser(String login, String password);
-
-    String getPasswordByUsername(String username);
 
     List<User> getAllUsers();
 

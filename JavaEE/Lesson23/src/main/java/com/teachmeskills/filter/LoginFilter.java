@@ -19,12 +19,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         Cookie[] cookies = request.getCookies();
-        if(cookies != null && cookies.length > 1) {
-            for (Cookie c : cookies) {
-                String name = c.getName();
-                String password = c.getValue();
-                System.out.println(name + "\n" + password);
-            }
+        if ((String) request.getServletContext().getAttribute("username") != null) {
             filterChain.doFilter(request,response);
         } else {
             request.getRequestDispatcher("/Authorization.jsp").forward(request, response);

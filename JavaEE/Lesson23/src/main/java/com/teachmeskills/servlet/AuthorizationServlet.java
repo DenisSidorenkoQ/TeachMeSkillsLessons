@@ -18,41 +18,13 @@ import java.util.Objects;
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
-    private Connection connection;
-    private AuthenticationService authenticationService;
-    private RegistrationService registrationService;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        connection = (Connection) config.getServletContext().getAttribute("connection");
-        authenticationService = new AuthenticationService(connection);
-        registrationService = new RegistrationService(connection);
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
 
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        try (Writer writer = resp.getWriter()) {
-            String username = req.getParameter("username");
-            String password = req.getParameter("password");
+        AuthenticationService authenticationService =
+                (AuthenticationService) req.getServletContext().getAttribute("authenticationService");
 
-            if (authenticationService.checkUser(username, password)) {
-                Cookie cookie = new Cookie(username, password);
-                cookie.setMaxAge(-1);
-                resp.addCookie(cookie);
-                writer.write("Cookies send");
-                req.getRequestDispatcher("/Output.jsp").forward(req, resp);
-            } else {
-                writer.write("Authorization Error");
-            }
-
-        }
+        authenticationService.authentication(req, resp);
     }
 }
