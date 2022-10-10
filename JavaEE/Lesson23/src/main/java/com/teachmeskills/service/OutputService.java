@@ -1,7 +1,6 @@
 package com.teachmeskills.service;
 
 import com.teachmeskills.model.User;
-import com.teachmeskills.repository.JdbcUserRepository;
 import com.teachmeskills.repository.UserRepository;
 
 import java.io.IOException;
@@ -22,16 +21,6 @@ public class OutputService {
         } else {
             return userRepository.getAllUsers();
         }
-    }
-
-    public void outputList(List<User> users, Writer writer) {
-        users.stream().forEach(user -> {
-            try {
-                writer.write("<h1>" + user.getUsername() + "</h1>");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
 
 

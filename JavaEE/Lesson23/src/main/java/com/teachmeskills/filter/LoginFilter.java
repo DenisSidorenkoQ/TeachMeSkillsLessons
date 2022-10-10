@@ -6,8 +6,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Writer;
-import java.util.logging.LogRecord;
 
 @WebFilter(urlPatterns = "/Output.jsp",
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})

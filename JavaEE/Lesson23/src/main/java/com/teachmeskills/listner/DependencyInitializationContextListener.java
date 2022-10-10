@@ -2,9 +2,8 @@ package com.teachmeskills.listner;
 
 import com.teachmeskills.repository.JdbcUserRepository;
 import com.teachmeskills.repository.UserRepository;
-import com.teachmeskills.service.AuthenticationService;
 import com.teachmeskills.service.OutputService;
-import com.teachmeskills.service.RegistrationService;
+import com.teachmeskills.service.UserService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -26,16 +25,14 @@ public class DependencyInitializationContextListener implements ServletContextLi
         try {
             Class.forName(DB_DRIVER);
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            UserRepository UserRepository = new JdbcUserRepository(connection);
-            AuthenticationService authenticationService = new AuthenticationService(UserRepository);
-            RegistrationService registrationService = new RegistrationService(UserRepository);
-            OutputService outputService = new OutputService(UserRepository);
+            UserRepository userRepository = new JdbcUserRepository(connection);
+            OutputService outputService = new OutputService(userRepository);
+            UserService userService = new UserService(userRepository);
 
             sce.getServletContext().setAttribute("connection", connection);
-            sce.getServletContext().setAttribute("jdbcUserRepository", UserRepository);
-            sce.getServletContext().setAttribute("authenticationService", authenticationService);
-            sce.getServletContext().setAttribute("registrationService", registrationService);
+            sce.getServletContext().setAttribute("jdbcUserRepository", userRepository);
             sce.getServletContext().setAttribute("outputService", outputService);
+            sce.getServletContext().setAttribute("userService", userService);
             System.out.println(connection.getCatalog());
         } catch (Exception e) {
             e.printStackTrace();

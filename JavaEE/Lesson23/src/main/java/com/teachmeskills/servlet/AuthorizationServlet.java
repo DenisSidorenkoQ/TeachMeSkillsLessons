@@ -1,7 +1,6 @@
 package com.teachmeskills.servlet;
 
-import com.teachmeskills.service.AuthenticationService;
-import com.teachmeskills.service.RegistrationService;
+import com.teachmeskills.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -18,13 +17,26 @@ import java.util.Objects;
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
+    private UserService userService;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        userService = (UserService) config.getServletContext().getAttribute("userService");
+    }
 
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        AuthenticationService authenticationService =
-                (AuthenticationService) req.getServletContext().getAttribute("authenticationService");
 
-        authenticationService.authentication(req, resp);
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        try (Writer writer = resp.getWriter()){
+            if (userService.authentication(username, password)) {
+                req.getServletContext().setAttribute("username", username);
+                req.getRequestDispatcher("/Output.jsp").forward(req, resp);
+            } else {
+                writer.write("Authorization Error");
+            }
+        }
     }
 }

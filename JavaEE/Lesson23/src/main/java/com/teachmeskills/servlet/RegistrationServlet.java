@@ -1,7 +1,6 @@
 package com.teachmeskills.servlet;
 
-import com.teachmeskills.service.AuthenticationService;
-import com.teachmeskills.service.RegistrationService;
+import com.teachmeskills.service.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,13 +14,28 @@ import java.sql.Connection;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
+    private UserService userService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        userService = (UserService) config.getServletContext().getAttribute("userService");
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        RegistrationService registrationService =
-                (RegistrationService) req.getServletContext().getAttribute("registrationService");
 
-        registrationService.registration(req, resp);
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        try (Writer writer = resp.getWriter()){
+            if (userService.registration(username, password)) {
+                writer.write("This login is already registered");
+                req.getServletContext().getRequestDispatcher("/Authorization.jsp").forward(req, resp);
+            } else {
+                req.getServletContext().getRequestDispatcher("/authorization").forward(req, resp);
+            }
+        }
+
     }
 }

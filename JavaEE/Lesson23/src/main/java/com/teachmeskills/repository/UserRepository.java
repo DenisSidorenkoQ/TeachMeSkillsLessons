@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface UserRepository {
 
-    public boolean userIsExists(String login, String password);
+     boolean isExists(String login, String password);
 
-    boolean findUserByName(String login);
+     boolean findUserByName(String login);
 
     boolean insertNewUser(String login, String password);
 
