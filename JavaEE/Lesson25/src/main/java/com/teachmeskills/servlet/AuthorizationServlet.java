@@ -33,7 +33,6 @@ public class AuthorizationServlet extends HttpServlet {
             } else {
                 writer.write("Authorization Error");
             }
-
         }
     }
 }

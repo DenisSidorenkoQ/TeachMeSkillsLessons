@@ -1,8 +1,7 @@
 <%@ page import="com.teachmeskills.model.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.io.Writer" %>
 <%@ page import="com.teachmeskills.service.OutputService" %>
-<%@ page import="java.io.IOException" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Denis
   Date: 09.10.2022
@@ -10,6 +9,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c-rt" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,13 +29,11 @@
                     (OutputService) request.getServletContext().getAttribute("outputService");
             String queryParameter = request.getParameter("parameter");
             List<User> users = outputService.getAllUsers(queryParameter);
-
-            for (int i = 0; i < users.size(); i++) {
+            request.setAttribute("users", users);
         %>
-        <li class="list-group-item"><%=users.get(i).getUsername()%> </li>
-        <%
-            }
-        %>
+        <c:forEach items="${users}" var="user" varStatus="loop">
+            <li class="list-group-item">${user.getUsername()}</li>
+        </c:forEach>
     </ul>
 </div>
 <!-- Optional JavaScript -->
