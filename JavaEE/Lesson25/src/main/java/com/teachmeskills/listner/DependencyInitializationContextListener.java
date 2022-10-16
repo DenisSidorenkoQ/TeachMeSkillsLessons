@@ -2,7 +2,6 @@ package com.teachmeskills.listner;
 
 import com.teachmeskills.repository.JdbcUserRepository;
 import com.teachmeskills.repository.UserRepository;
-import com.teachmeskills.service.OutputService;
 import com.teachmeskills.service.UserService;
 
 import java.sql.Connection;
@@ -25,16 +24,13 @@ public class DependencyInitializationContextListener implements ServletContextLi
             Class.forName(DB_DRIVER);
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             UserRepository userRepository = new JdbcUserRepository(connection);
-            OutputService outputService = new OutputService(userRepository);
             UserService userService = new UserService(userRepository);
 
-            sce.getServletContext().setAttribute("connection", connection);
-            sce.getServletContext().setAttribute("jdbcUserRepository", userRepository);
-            sce.getServletContext().setAttribute("outputService", outputService);
             sce.getServletContext().setAttribute("userService", userService);
             System.out.println(connection.getCatalog());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("Dependencies not created");
         }
     }
 }

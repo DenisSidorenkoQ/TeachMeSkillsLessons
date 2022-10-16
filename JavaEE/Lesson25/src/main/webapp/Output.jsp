@@ -1,6 +1,3 @@
-<%@ page import="com.teachmeskills.model.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.teachmeskills.service.OutputService" %>
 <%--
   Created by IntelliJ IDEA.
   User: Denis
@@ -19,21 +16,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+
 <div class="card" style="width: 18rem;">
     <div class="card-header text-success">
         Users
     </div>
     <ul class="list-group list-group-flush">
-        <%
-            OutputService outputService =
-                    (OutputService) request.getServletContext().getAttribute("outputService");
-            String queryParameter = request.getParameter("parameter");
-            List<User> users = outputService.getAllUsers(queryParameter);
-            request.setAttribute("users", users);
-        %>
-        <c:forEach items="${users}" var="user" varStatus="loop">
-            <li class="list-group-item">${user.getUsername()}</li>
-        </c:forEach>
+        <c:if test="${users == null}">
+            <jsp:forward page="/output"/>
+        </c:if>
+        <c:if test="${users != null}">
+            <c:forEach items="${users}" var="user" varStatus="loop">
+                <li class="list-group-item"><c:out value="${user.getUsername()}" /></li>
+            </c:forEach>
+            <c:remove var="users"></c:remove>
+        </c:if>
     </ul>
 </div>
 <!-- Optional JavaScript -->

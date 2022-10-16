@@ -26,10 +26,10 @@ public class RegistrationServlet extends HttpServlet {
         String username = req.getParameter("inputLogin");
         String password = req.getParameter("inputPassword");
 
-        if (userService.registration(username, password)) {
-            req.getServletContext().getRequestDispatcher("/Authorization.jsp").forward(req, resp);
-        } else {
+        if (userService.register(username, password)) {
             req.getServletContext().getRequestDispatcher("/authorization").forward(req, resp);
+        } else {
+            req.getServletContext().getRequestDispatcher("/Authorization.jsp").forward(req, resp);
         }
 
     }

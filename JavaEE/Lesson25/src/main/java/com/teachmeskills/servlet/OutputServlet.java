@@ -1,18 +1,20 @@
 package com.teachmeskills.servlet;
 
+
+import com.teachmeskills.model.User;
 import com.teachmeskills.service.UserService;
 
-import java.io.IOException;
-import java.io.Writer;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/authorization")
-public class AuthorizationServlet extends HttpServlet {
+@WebServlet("/output")
+public class OutputServlet extends HttpServlet {
     private UserService userService;
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -23,16 +25,8 @@ public class AuthorizationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        String username = req.getParameter("inputLogin");
-        String password = req.getParameter("inputPassword");
-
-        try (Writer writer = resp.getWriter()) {
-            if (userService.isExists(username, password)) {
-                req.getServletContext().setAttribute("username", username);
-                req.getRequestDispatcher("/Output.jsp").forward(req, resp);
-            } else {
-                writer.write("Authorization Error");
-            }
-        }
+        List<User> users = userService.getAllUsers(null);
+        req.getServletContext().setAttribute("users", users);
+        req.getRequestDispatcher("/Output.jsp").forward(req, resp);
     }
 }

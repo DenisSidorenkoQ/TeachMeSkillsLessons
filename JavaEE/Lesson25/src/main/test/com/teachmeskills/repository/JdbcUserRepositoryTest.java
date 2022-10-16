@@ -1,6 +1,6 @@
 package com.teachmeskills.repository;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -40,6 +40,11 @@ public class JdbcUserRepositoryTest {
 
     @Test
     void shouldInsertNewUser() {
-        Assert.assertTrue(repository.insertNewUser("test_username", "test_password"));
+        final String testUsername = "test_username";
+        final String testPassword = "test_password";
+
+        if (repository.insertNewUser(testUsername, testPassword)) {
+           Assertions.assertTrue(repository.isExists(testUsername, testPassword));
+        }
     }
 }

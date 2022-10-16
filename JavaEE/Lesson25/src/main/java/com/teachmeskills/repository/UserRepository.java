@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserRepository {
     boolean isExists(String login, String password);
-    boolean findUserByName(String login);
+    boolean isExists(String login);
     boolean insertNewUser(String login, String password);
     List<User> getAllUsers();
     List<User> getAllUsers(String parameter);

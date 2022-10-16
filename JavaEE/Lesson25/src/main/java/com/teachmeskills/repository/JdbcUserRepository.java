@@ -36,7 +36,7 @@ public class JdbcUserRepository implements UserRepository {
         }
     }
     @Override
-    public boolean findUserByName(String login) {
+    public boolean isExists(String login) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_NAME_SQL)) {
             statement.setString(1, login);
 

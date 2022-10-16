@@ -1,6 +1,9 @@
 package com.teachmeskills.service;
 
+import com.teachmeskills.model.User;
 import com.teachmeskills.repository.UserRepository;
+
+import java.util.List;
 
 public class UserService {
 
@@ -10,17 +13,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean authentication(String username, String password) {
-        return isExists(username, password);
-    }
+    public boolean register(String username, String password) {
 
-    public boolean registration(String username, String password) {
-
-        if (findUserByName(username)) {
-            return true;
-        } else {
-            registerUser(username, password);
+        if (isExists(username)) {
             return false;
+        } else {
+            userRepository.insertNewUser(username, password);
+            return true;
         }
     }
 
@@ -28,12 +27,16 @@ public class UserService {
         return userRepository.isExists(username, password);
     }
 
-    public boolean findUserByName(String username) {
-        return userRepository.findUserByName(username);
+    public boolean isExists(String username) {
+        return userRepository.isExists(username);
     }
 
-    public boolean registerUser(String username, String password) {
-        return userRepository.insertNewUser(username, password);
+    public List<User> getAllUsers(String queryParameter) {
+        if (queryParameter != null) {
+            return userRepository.getAllUsers(queryParameter);
+        } else {
+            return userRepository.getAllUsers();
+        }
     }
 
 }
