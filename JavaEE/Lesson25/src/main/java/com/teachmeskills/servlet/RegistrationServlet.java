@@ -1,6 +1,7 @@
 package com.teachmeskills.servlet;
 
 import com.teachmeskills.service.UserService;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import javax.servlet.ServletConfig;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/registration")
+@Log4j2
 public class RegistrationServlet extends HttpServlet {
     private UserService userService;
 
@@ -27,8 +29,10 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("inputPassword");
 
         if (userService.register(username, password)) {
+            log.info("User does not exist, registering a new user. Login[{}]", username);
             req.getServletContext().getRequestDispatcher("/authorization").forward(req, resp);
         } else {
+            log.info("User is already to exist. Login[{}]", username);
             req.getServletContext().getRequestDispatcher("/Authorization.jsp").forward(req, resp);
         }
 

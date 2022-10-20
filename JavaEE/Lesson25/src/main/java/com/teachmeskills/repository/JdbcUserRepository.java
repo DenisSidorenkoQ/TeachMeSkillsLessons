@@ -1,6 +1,7 @@
 package com.teachmeskills.repository;
 
 import com.teachmeskills.model.User;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+@Log4j2
 public class JdbcUserRepository implements UserRepository {
     private final Connection connection;
     private static final String FIND_ALL_USERS_SQL = "select * from users";
@@ -32,6 +33,7 @@ public class JdbcUserRepository implements UserRepository {
             return rs.next();
         } catch (SQLException e) {
             e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return false;
         }
     }
@@ -44,6 +46,7 @@ public class JdbcUserRepository implements UserRepository {
             return rs.next();
         } catch (SQLException e) {
             e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return false;
         }
     }
@@ -57,6 +60,7 @@ public class JdbcUserRepository implements UserRepository {
             return true;
         } catch (SQLException e) {
             e.getErrorCode();
+            log.error("Error code: " + e.getErrorCode());
             return false;
         }
     }
@@ -73,6 +77,7 @@ public class JdbcUserRepository implements UserRepository {
             return users;
         } catch (SQLException e) {
             e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
@@ -90,6 +95,7 @@ public class JdbcUserRepository implements UserRepository {
             return users;
         } catch (SQLException e) {
             e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
