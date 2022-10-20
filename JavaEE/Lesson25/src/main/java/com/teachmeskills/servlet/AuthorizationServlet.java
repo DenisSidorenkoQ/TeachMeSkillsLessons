@@ -1,6 +1,7 @@
 package com.teachmeskills.servlet;
 
 import com.teachmeskills.service.UserService;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/authorization")
+@Log4j2
 public class AuthorizationServlet extends HttpServlet {
     private UserService userService;
     @Override
@@ -28,9 +30,11 @@ public class AuthorizationServlet extends HttpServlet {
 
         try (Writer writer = resp.getWriter()) {
             if (userService.isExists(username, password)) {
+                log.info("User is exists. Login[{}]", username);
                 req.getServletContext().setAttribute("username", username);
                 req.getRequestDispatcher("/Output.jsp").forward(req, resp);
             } else {
+                log.warn("User not exists. Login[{}]", username);
                 writer.write("Authorization Error");
             }
         }

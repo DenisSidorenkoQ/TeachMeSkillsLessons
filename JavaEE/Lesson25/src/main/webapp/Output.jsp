@@ -27,7 +27,7 @@
         </c:if>
         <c:if test="${users != null}">
             <c:forEach items="${users}" var="user" varStatus="loop">
-                <li class="list-group-item"><c:out value="${user.getUsername()}" /></li>
+                <li class="list-group-item"><c:out value="${user.getLogin()}" /></li>
             </c:forEach>
             <c:remove var="users"></c:remove>
         </c:if>
