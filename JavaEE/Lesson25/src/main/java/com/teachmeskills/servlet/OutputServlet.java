@@ -25,7 +25,8 @@ public class OutputServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        List<User> users = userService.getAllUsers(null);
+        String param = req.getParameter("par");
+        List<User> users = userService.getAllUsers(param);
         req.getServletContext().setAttribute("users", users);
         req.getRequestDispatcher("/Output.jsp").forward(req, resp);
     }
