@@ -39,7 +39,7 @@
                 <c:if test="${user.getLogin() != username}">
                     <li class="list-group-item">
                         <c:out value="${user.getLogin()}" />
-                        <a href="addFriend?requestFriendName=${user.getLogin()}">
+                        <a href="addFriend?requestFriendId=${user.getUserId()}&requestFriendName=${user.getLogin()}">
                             <button type="button" class="mx-auto btn btn-outline-success btn-sm">
                                 Add to friends
                             </button>

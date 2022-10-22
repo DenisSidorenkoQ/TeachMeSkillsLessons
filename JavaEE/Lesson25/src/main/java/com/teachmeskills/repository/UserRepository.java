@@ -10,4 +10,5 @@ public interface UserRepository {
     boolean insertNewUser(String login, String password);
     List<User> getAllUsers();
     List<User> getAllUsers(String parameter);
+    int getUserIdByLogin(String login);
 }

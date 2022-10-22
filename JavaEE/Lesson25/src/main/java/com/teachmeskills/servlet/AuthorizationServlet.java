@@ -27,11 +27,13 @@ public class AuthorizationServlet extends HttpServlet {
 
         String username = req.getParameter("inputLogin");
         String password = req.getParameter("inputPassword");
+        int userId = userService.getUserIdByLogin(username);
 
         try (Writer writer = resp.getWriter()) {
             if (userService.isExists(username, password)) {
                 log.info("User is exists. Login[{}]", username);
                 req.getServletContext().setAttribute("username", username);
+                req.getServletContext().setAttribute("userId", userId);
                 req.getRequestDispatcher("/Output.jsp").forward(req, resp);
             } else {
                 log.warn("User not exists. Login[{}]", username);

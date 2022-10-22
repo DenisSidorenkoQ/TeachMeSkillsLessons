@@ -18,6 +18,7 @@ public class JdbcUserRepository implements UserRepository {
     private static final String USER_IS_EXISTS_SQL = "select login from \"user\" where login=? and password=?";
     private static final String FIND_USER_BY_NAME_SQL = "select * from \"user\" where login=?";
     private static final String INSERT_NEW_USER_SQL = "insert into \"user\" values ( ?, ?)";
+    private static final String GET_USER_ID_BY_NAME_SQL = "select user_id from \"user\" where login=?";
 
     public JdbcUserRepository(Connection connection) {
         this.connection = connection;
@@ -72,7 +73,7 @@ public class JdbcUserRepository implements UserRepository {
             List<User> users = new ArrayList<>();
 
             while (rs.next()) {
-                users.add(new User(rs.getString("login")));
+                users.add(new User(rs.getInt("user_id"), rs.getString("login")));
             }
             return users;
         } catch (SQLException e) {
@@ -90,13 +91,28 @@ public class JdbcUserRepository implements UserRepository {
             List<User> users = new ArrayList<>();
 
             while (rs.next()) {
-                users.add(new User(rs.getString("login")));
+                users.add(new User(rs.getInt("user_id"), rs.getString("login")));
             }
             return users;
         } catch (SQLException e) {
             e.getStackTrace();
             log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public int getUserIdByLogin(String login) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_USER_ID_BY_NAME_SQL)) {
+            statement.setString(1, login);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("user_id");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

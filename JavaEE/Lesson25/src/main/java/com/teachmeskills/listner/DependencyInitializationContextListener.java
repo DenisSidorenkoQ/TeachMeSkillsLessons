@@ -1,7 +1,10 @@
 package com.teachmeskills.listner;
 
+import com.teachmeskills.repository.FriendRequestRepository;
+import com.teachmeskills.repository.JdbcFriendRequestRepository;
 import com.teachmeskills.repository.JdbcUserRepository;
 import com.teachmeskills.repository.UserRepository;
+import com.teachmeskills.service.FriendService;
 import com.teachmeskills.service.UserService;
 
 import java.sql.Connection;
@@ -26,8 +29,11 @@ public class DependencyInitializationContextListener implements ServletContextLi
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             UserRepository userRepository = new JdbcUserRepository(connection);
             UserService userService = new UserService(userRepository);
+            FriendRequestRepository friendRequestRepository = new JdbcFriendRequestRepository(connection);
+            FriendService friendService = new FriendService(friendRequestRepository);
 
             sce.getServletContext().setAttribute("userService", userService);
+            sce.getServletContext().setAttribute("friendService", friendService);
             System.out.println(connection.getCatalog());
         } catch (Exception e) {
             e.printStackTrace();
