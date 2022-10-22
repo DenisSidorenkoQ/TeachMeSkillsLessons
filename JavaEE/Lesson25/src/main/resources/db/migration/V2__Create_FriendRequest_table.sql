@@ -6,3 +6,4 @@ create table friend_request
 );
 
 INSERT INTO "friend_request" (sender_id, recipient_id) VALUES (2, 1), (3, 1), (4, 1);
+

@@ -20,37 +20,31 @@
 <div class="card" style="width: 30rem;">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">UsersList</li>
+            <li class="breadcrumb-item"><a href="Output.jsp">UsersList</a></li>
             <li class="breadcrumb-item"><a href="Friends.jsp">Friends</a></li>
-            <li class="breadcrumb-item"><a href="incomingRequestsServlet">Incoming requests</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Incoming requests</li>
             <li class="breadcrumb-item"><a href="OutgoingRequests.jsp">Outgoing requests</a></li>
         </ol>
     </nav>
     <div class="card-header text-success">
-        Users
+        Incoming requests from users
     </div>
     <ul class="list-group list-group-flush">
-        <c:if test="${users == null}">
-            <jsp:forward page="/output"/>
-        </c:if>
-        <c:if test="${users != null}">
-            <c:forEach items="${users}" var="user" varStatus="loop">
-                <c:if test="${user.getLogin() == username}">
-                    <li class="list-group-item"><c:out value="${user.getLogin()}" /></li>
-                </c:if>
-                <c:if test="${user.getLogin() != username}">
-                    <li class="list-group-item">
-                        <c:out value="${user.getLogin()}" />
-                        <a href="addFriendRequest?requestFriendId=${user.getUserId()}&requestFriendName=${user.getLogin()}">
-                            <button type="button" class="mx-auto btn btn-outline-success btn-sm">
-                                Add to friends
-                            </button>
-                        </a>
-                    </li>
-                </c:if>
-            </c:forEach>
-            <c:set var="user" value="null"/>
-        </c:if>
+        <c:forEach items="${listOfUsersWithIncomingRequest}" var="user" varStatus="loop">
+            <li class="list-group-item">
+                <c:out value="${user.getLogin()}" />
+                <a href="addFriend?requestUserId=${user.getUserId()}">
+                    <button type="button" class="mx-auto btn btn-outline-success btn-sm">
+                        Add
+                    </button>
+                </a>
+                <a href="delFriendRequest?requestUserId=${user.getUserId()}">
+                    <button type="button" class="mx-auto btn btn-outline-danger btn-sm">
+                        Delete
+                    </button>
+                </a>
+            </li>
+        </c:forEach>
     </ul>
 </div>
 <!-- Optional JavaScript -->

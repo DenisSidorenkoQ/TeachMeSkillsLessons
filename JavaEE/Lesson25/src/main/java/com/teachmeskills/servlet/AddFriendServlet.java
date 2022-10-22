@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @Log4j2
 @WebServlet(urlPatterns = "/addFriend")
-public class FriendServlet extends HttpServlet {
+public class AddFriendServlet extends HttpServlet {
     private FriendService friendService;
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -24,13 +24,8 @@ public class FriendServlet extends HttpServlet {
         resp.setContentType("text/html");
 
         int userId = (int) req.getServletContext().getAttribute("userId");
-        int recipientId = Integer.parseInt(req.getParameter("requestFriendId"));
-        if (friendService.friendRequestIsExists(userId, recipientId)) {
-            log.info("Request is exists");
-        } else {
-            friendService.createRequest(userId, recipientId);
-            log.info("Request not exists. Create new request");
-        }
+        int recipientId = Integer.parseInt(req.getParameter("requestUserId"));
+        friendService.addFriend(recipientId, userId);
+        friendService.delRequest(recipientId, userId);
     }
-
 }
