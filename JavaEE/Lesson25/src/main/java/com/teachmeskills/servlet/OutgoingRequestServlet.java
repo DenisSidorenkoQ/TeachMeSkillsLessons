@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet(urlPatterns = "/incomingRequestsServlet")
-public class IncomingRequestsServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/outgoingRequestServlet")
+public class OutgoingRequestServlet extends HttpServlet {
     private FriendService friendService;
 
     @Override
@@ -25,9 +25,9 @@ public class IncomingRequestsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = (int) req.getServletContext().getAttribute("userId");
-        List<User> listOfUsersWithIncomingRequest = friendService.getUsersOfAllIncomingRequests(userId);
+        List<User> listOfUsersWithOutgoingRequest = friendService.getUsersOfAllOutgoingRequests(userId);
 
-        req.getServletContext().setAttribute("listOfUsersWithIncomingRequest", listOfUsersWithIncomingRequest);
-        req.getRequestDispatcher("/IncomingRequests.jsp").forward(req, resp);
+        req.getServletContext().setAttribute("listOfUsersWithOutgoingRequest", listOfUsersWithOutgoingRequest);
+        req.getRequestDispatcher("/OutgoingRequests.jsp").forward(req, resp);
     }
 }

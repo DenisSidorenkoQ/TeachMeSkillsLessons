@@ -23,10 +23,9 @@ public class OutputServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-
         String param = req.getParameter("par");
         List<User> users = userService.getAllUsers(param);
+
         req.getServletContext().setAttribute("users", users);
         req.getRequestDispatcher("/Output.jsp").forward(req, resp);
     }

@@ -23,7 +23,7 @@
             <li class="breadcrumb-item active" aria-current="page">UsersList</li>
             <li class="breadcrumb-item"><a href="Friends.jsp">Friends</a></li>
             <li class="breadcrumb-item"><a href="incomingRequestsServlet">Incoming requests</a></li>
-            <li class="breadcrumb-item"><a href="OutgoingRequests.jsp">Outgoing requests</a></li>
+            <li class="breadcrumb-item"><a href="outgoingRequestServlet">Outgoing requests</a></li>
         </ol>
     </nav>
     <div class="card-header text-success">

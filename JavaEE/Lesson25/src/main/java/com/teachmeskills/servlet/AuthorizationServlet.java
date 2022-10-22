@@ -23,8 +23,6 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-
         String username = req.getParameter("inputLogin");
         String password = req.getParameter("inputPassword");
         int userId = userService.getUserIdByLogin(username);

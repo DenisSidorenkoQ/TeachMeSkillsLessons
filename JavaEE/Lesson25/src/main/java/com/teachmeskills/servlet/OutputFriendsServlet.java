@@ -1,7 +1,7 @@
 package com.teachmeskills.servlet;
 
 import com.teachmeskills.service.FriendService;
-import lombok.extern.log4j.Log4j2;
+import com.teachmeskills.service.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,22 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Log4j2
-@WebServlet(urlPatterns = "/addFriend")
-public class AddFriendServlet extends HttpServlet {
+@WebServlet("/outputFriends")
+public class OutputFriendsServlet extends HttpServlet {
+
     private FriendService friendService;
     @Override
     public void init(ServletConfig config) throws ServletException {
         friendService = (FriendService) config.getServletContext().getAttribute("friendService");
     }
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int userId = (int) req.getServletContext().getAttribute("userId");
-        int recipientId = Integer.parseInt(req.getParameter("requestUserId"));
 
-        friendService.addFriend(recipientId, userId);
-        log.info("Add new friend. Id=[{}]", recipientId);
-        friendService.delRequest(recipientId, userId);
-        req.getServletContext().getRequestDispatcher("/incomingRequestsServlet").forward(req, resp);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int userId = (int) req.getServletContext().getAttribute("userId");
+
     }
 }

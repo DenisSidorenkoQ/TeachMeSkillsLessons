@@ -20,8 +20,8 @@ public class FriendService {
         return friendRequestRepository.createRequest(senderId, recipientId);
     }
 
-    public List<User> getUsersOfAllIncomingRequests(int userId) {
-        return friendRequestRepository.getUsersOfAllIncomingRequests(userId);
+    public List<User> getUsersOfAllIncomingRequests(int recipientId) {
+        return friendRequestRepository.getUsersOfAllIncomingRequests(recipientId);
     }
 
     public boolean delRequest(int senderId, int recipientId) {
@@ -30,5 +30,9 @@ public class FriendService {
 
     public boolean addFriend(int senderId, int recipientId) {
         return friendRequestRepository.addFriend(senderId, recipientId);
+    }
+
+    public List<User> getUsersOfAllOutgoingRequests(int senderId) {
+        return friendRequestRepository.getUsersOfAllOutgoingRequests(senderId);
     }
 }

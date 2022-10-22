@@ -22,12 +22,20 @@ public class DelFriendRequestServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-
         int senderId = Integer.parseInt(req.getParameter("requestUserId"));
         int userID = (int) req.getServletContext().getAttribute("userId");
-        log.error(senderId);
-        friendService.delRequest(senderId, userID);
-        req.getRequestDispatcher("/IncomingRequests.jsp").forward(req, resp);
+
+        if (req.getParameter("page").equals("incoming")) {
+            log.info("del friend request. Id=[{}]", senderId);
+
+            friendService.delRequest(senderId, userID);
+            req.getRequestDispatcher("/incomingRequestsServlet").forward(req, resp);
+        } else {
+            log.info("del friend request. Id=[{}]", userID);
+
+            friendService.delRequest(userID, senderId);
+            req.getRequestDispatcher("/outgoingRequestServlet").forward(req, resp);
+        }
+
     }
 }

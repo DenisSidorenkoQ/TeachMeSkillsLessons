@@ -22,8 +22,8 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="Output.jsp">UsersList</a></li>
       <li class="breadcrumb-item active" aria-current="page">Friends</li>
-      <li class="breadcrumb-item"><a href="IncomingRequests.jsp">Incoming requests</a></li>
-      <li class="breadcrumb-item"><a href="OutgoingRequests.jsp">Outgoing requests</a></li>
+      <li class="breadcrumb-item"><a href="incomingRequestsServlet">Incoming requests</a></li>
+      <li class="breadcrumb-item"><a href="outgoingRequestServlet">Outgoing requests</a></li>
     </ol>
   </nav>
   <div class="card-header text-success">

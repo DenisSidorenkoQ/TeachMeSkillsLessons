@@ -23,11 +23,11 @@
             <li class="breadcrumb-item"><a href="Output.jsp">UsersList</a></li>
             <li class="breadcrumb-item"><a href="Friends.jsp">Friends</a></li>
             <li class="breadcrumb-item active" aria-current="page">Incoming requests</li>
-            <li class="breadcrumb-item"><a href="OutgoingRequests.jsp">Outgoing requests</a></li>
+            <li class="breadcrumb-item"><a href="outgoingRequestServlet">Incoming requests</a></li>
         </ol>
     </nav>
     <div class="card-header text-success">
-        Incoming requests from users
+        Incoming requests
     </div>
     <ul class="list-group list-group-flush">
         <c:forEach items="${listOfUsersWithIncomingRequest}" var="user" varStatus="loop">
@@ -38,7 +38,7 @@
                         Add
                     </button>
                 </a>
-                <a href="delFriendRequest?requestUserId=${user.getUserId()}">
+                <a href="delFriendRequest?requestUserId=${user.getUserId()}&page=incoming">
                     <button type="button" class="mx-auto btn btn-outline-danger btn-sm">
                         Delete
                     </button>

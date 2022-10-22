@@ -25,6 +25,10 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             "insert into friends (first_user_id, second_user_id) values ( ?, ?)";
     private static final String DELL_REQUEST_SQL =
             "delete from friend_request where sender_id=? and recipient_id=?";
+    private static final String GET_ALL_OUTGOING_REQUESTS_SQL =
+            "select \"user\".user_id, \"user\".login from friend_request " +
+                    "inner join \"user\" on recipient_id = user_id " +
+                    "where sender_id=?";
 
     public JdbcFriendRequestRepository(Connection connection) {
         this.connection = connection;
@@ -61,9 +65,9 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
     }
 
     @Override
-    public List<User> getUsersOfAllIncomingRequests(int userId) {
+    public List<User> getUsersOfAllIncomingRequests(int recipientId) {
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_INCOMING_REQUESTS_SQL)) {
-            statement.setInt(1, userId);
+            statement.setInt(1, recipientId);
 
             List<User> userList = new ArrayList<>();
             ResultSet rs = statement.executeQuery();
@@ -108,6 +112,27 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             e.getStackTrace();
             log.error("Error code: " + e.getErrorCode());
             return false;
+        }
+    }
+
+    @Override
+    public List<User> getUsersOfAllOutgoingRequests(int senderId) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_OUTGOING_REQUESTS_SQL)) {
+            statement.setInt(1, senderId);
+
+            List<User> userList = new ArrayList<>();
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                userList.add(new User(
+                        Integer.parseInt(rs.getString("user_id")),
+                        rs.getString("login"))
+                );
+            }
+            return userList;
+        } catch (SQLException e) {
+            e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
+            return new ArrayList<>();
         }
     }
 }
