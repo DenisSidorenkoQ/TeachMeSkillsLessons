@@ -18,14 +18,12 @@
 <body>
 
 <div class="card" style="width: 30rem;">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="Output.jsp">UsersList</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Friends</li>
-      <li class="breadcrumb-item"><a href="incomingRequestsServlet">Incoming requests</a></li>
-      <li class="breadcrumb-item"><a href="outgoingRequestServlet">Outgoing requests</a></li>
-    </ol>
-  </nav>
+  <jsp:include page="header.jsp" >
+    <jsp:param name="firstPage" value="<li class=\"breadcrumb-item\"><a href=\"OutputUsers.jsp\">UsersList</a></li>"/>
+    <jsp:param name="secondPage" value="<li class=\"breadcrumb-item active\" aria-current=\"page\">Friends</li>"/>
+    <jsp:param name="thirdPage" value="<li class=\"breadcrumb-item\"><a href=\"incomingRequestsServlet\">Incoming requests</a></li>"/>
+    <jsp:param name="fourthPage" value="<li class=\"breadcrumb-item\"><a href=\"outgoingRequestServlet\">Outgoing requests</a></li>"/>
+  </jsp:include>
   <div class="card-header text-success">
     Friends
   </div>

@@ -27,6 +27,6 @@ public class OutputServlet extends HttpServlet {
         List<User> users = userService.getAllUsers(param);
 
         req.getServletContext().setAttribute("users", users);
-        req.getRequestDispatcher("/Output.jsp").forward(req, resp);
+        req.getRequestDispatcher("/OutputUsers.jsp").forward(req, resp);
     }
 }

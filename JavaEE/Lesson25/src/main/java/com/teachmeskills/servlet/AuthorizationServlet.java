@@ -32,7 +32,7 @@ public class AuthorizationServlet extends HttpServlet {
                 log.info("User is exists. Login[{}]", username);
                 req.getServletContext().setAttribute("username", username);
                 req.getServletContext().setAttribute("userId", userId);
-                req.getRequestDispatcher("/Output.jsp").forward(req, resp);
+                req.getRequestDispatcher("/OutputUsers.jsp").forward(req, resp);
             } else {
                 log.warn("User not exists. Login[{}]", username);
                 writer.write("Authorization Error");

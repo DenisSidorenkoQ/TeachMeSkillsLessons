@@ -34,7 +34,7 @@ public class AddFriendRequestServlet extends HttpServlet {
                     recipientId
             );
         }
-        req.getServletContext().getRequestDispatcher("/Output.jsp").forward(req, resp);
+        req.getServletContext().getRequestDispatcher("/OutputUsers.jsp").forward(req, resp);
     }
 
 }
