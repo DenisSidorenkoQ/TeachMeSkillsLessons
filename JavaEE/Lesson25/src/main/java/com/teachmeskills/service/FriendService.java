@@ -35,4 +35,8 @@ public class FriendService {
     public List<User> getUsersOfAllOutgoingRequests(int senderId) {
         return friendRequestRepository.getUsersOfAllOutgoingRequests(senderId);
     }
+
+    public List<User> getAllFriends(int userId) {
+        return friendRequestRepository.getAllFriends(userId);
+    }
 }

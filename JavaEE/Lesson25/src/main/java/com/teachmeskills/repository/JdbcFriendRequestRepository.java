@@ -29,6 +29,15 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             "select \"user\".user_id, \"user\".login from friend_request " +
                     "inner join \"user\" on recipient_id = user_id " +
                     "where sender_id=?";
+    private static final String GET_ALL_FRIENDS_SQL = "select user_id, login from \"user\" " +
+            "join friends " +
+            "on first_user_id = user_id " +
+            "where second_user_id=? " +
+            "union " +
+            "select user_id, login from \"user\" " +
+            "join friends " +
+            "on second_user_id = user_id " +
+            "where first_user_id=?";
 
     public JdbcFriendRequestRepository(Connection connection) {
         this.connection = connection;
@@ -119,6 +128,28 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
     public List<User> getUsersOfAllOutgoingRequests(int senderId) {
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_OUTGOING_REQUESTS_SQL)) {
             statement.setInt(1, senderId);
+
+            List<User> userList = new ArrayList<>();
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                userList.add(new User(
+                        Integer.parseInt(rs.getString("user_id")),
+                        rs.getString("login"))
+                );
+            }
+            return userList;
+        } catch (SQLException e) {
+            e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<User> getAllFriends(int userId) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_FRIENDS_SQL)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, userId);
 
             List<User> userList = new ArrayList<>();
             ResultSet rs = statement.executeQuery();

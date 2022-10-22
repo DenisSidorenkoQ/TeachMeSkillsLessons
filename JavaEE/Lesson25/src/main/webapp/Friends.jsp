@@ -27,10 +27,14 @@
     </ol>
   </nav>
   <div class="card-header text-success">
-    Users
+    Friends
   </div>
   <ul class="list-group list-group-flush">
-
+    <c:forEach items="${friendsList}" var="user" varStatus="loop">
+      <li class="list-group-item">
+        <c:out value="${user.getLogin()}" />
+      </li>
+    </c:forEach>
   </ul>
 </div>
 <!-- Optional JavaScript -->

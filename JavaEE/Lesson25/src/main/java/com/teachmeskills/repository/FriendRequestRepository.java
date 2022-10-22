@@ -10,6 +10,6 @@ public interface FriendRequestRepository {
     List<User> getUsersOfAllIncomingRequests(int recipientId);
     boolean addFriend(int senderId, int recipientId);
     boolean delFriendRequest(int senderId, int recipientId);
-
     List<User> getUsersOfAllOutgoingRequests(int senderId);
+    List<User> getAllFriends(int userId);
 }

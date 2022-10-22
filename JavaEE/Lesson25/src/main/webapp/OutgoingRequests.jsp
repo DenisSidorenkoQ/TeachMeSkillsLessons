@@ -21,7 +21,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="Output.jsp">UsersList</a></li>
-      <li class="breadcrumb-item"><a href="Friends.jsp">Friends</a></li>
+      <li class="breadcrumb-item"><a href="outputFriends">Friends</a></li>
       <li class="breadcrumb-item"><a href="incomingRequestsServlet">Incoming requests</a></li>
       <li class="breadcrumb-item active" aria-current="page">Outgoing requests</li>
     </ol>
