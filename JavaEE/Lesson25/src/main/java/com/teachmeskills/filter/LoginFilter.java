@@ -11,10 +11,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = {"/Output.jsp", "/Friends.jsp", "/IncomingRequests.jsp", "/OutgoingRequests.jsp"},
+@WebFilter(urlPatterns = {"/Output.jsp", "/Friends.jsp", "/IncomingRequests.jsp", "/OutgoingRequests.jsp", "/outputFriends", "/incomingRequestsServlet", "/outgoingRequestServlet"},
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class LoginFilter implements Filter {
-
     @Override
     public void doFilter(final ServletRequest servletRequest,
                          final ServletResponse servletResponse,
