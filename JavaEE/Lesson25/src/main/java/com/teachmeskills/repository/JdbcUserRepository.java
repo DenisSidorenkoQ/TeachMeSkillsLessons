@@ -13,11 +13,11 @@ import java.util.List;
 @Log4j2
 public class JdbcUserRepository implements UserRepository {
     private final Connection connection;
-    private static final String FIND_ALL_USERS_SQL = "select * from users";
-    private static final String FIND_ALL_USERS_BY_PARAMETER_SQL = "select login from users where login like ?";
-    private static final String USER_IS_EXISTS_SQL = "select login from users where login=? and password=?";
-    private static final String FIND_USER_BY_NAME_SQL = "select * from users where login=?";
-    private static final String INSERT_NEW_USER_SQL = "insert into users values ( ?, ?)";
+    private static final String FIND_ALL_USERS_SQL = "select * from \"user\"";
+    private static final String FIND_ALL_USERS_BY_PARAMETER_SQL = "select login from \"user\" where login like ?";
+    private static final String USER_IS_EXISTS_SQL = "select login from \"user\" where login=? and password=?";
+    private static final String FIND_USER_BY_NAME_SQL = "select * from \"user\" where login=?";
+    private static final String INSERT_NEW_USER_SQL = "insert into \"user\" values ( ?, ?)";
 
     public JdbcUserRepository(Connection connection) {
         this.connection = connection;

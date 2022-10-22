@@ -15,7 +15,8 @@ public class DependencyInitializationContextListener implements ServletContextLi
     static final String DB_DRIVER = "org.postgresql.Driver";
     static final String USERNAME = "postgres";
     static final String PASSWORD = "postgres";
-    static final String DB_URL = "jdbc:postgresql://postgres:5432/postgres";
+    static final String DB_URL = "jdbc:postgresql://postgres:5432/social_network";
+    // "jdbc:postgresql://postgres:5432/social_network"
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

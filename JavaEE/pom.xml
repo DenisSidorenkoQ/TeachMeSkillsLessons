@@ -12,6 +12,8 @@
         <module>Lesson22</module>
         <module>Lesson23</module>
         <module>Lesson25</module>
+        <module>TestsFromLesson27</module>
+        <module>SocialNetwork</module>
     </modules>
 
     <properties>

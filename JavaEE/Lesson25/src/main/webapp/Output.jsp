@@ -18,6 +18,12 @@
 <body>
 
 <div class="card" style="width: 18rem;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">UsersList</li>
+            <li class="breadcrumb-item"><a href="Friends.jsp">Friends</a></li>
+        </ol>
+    </nav>
     <div class="card-header text-success">
         Users
     </div>
@@ -27,9 +33,21 @@
         </c:if>
         <c:if test="${users != null}">
             <c:forEach items="${users}" var="user" varStatus="loop">
-                <li class="list-group-item"><c:out value="${user.getLogin()}" /></li>
+                <c:if test="${user.getLogin() == username}">
+                    <li class="list-group-item"><c:out value="${user.getLogin()}" /></li>
+                </c:if>
+                <c:if test="${user.getLogin() != username}">
+                    <li class="list-group-item">
+                        <c:out value="${user.getLogin()}" />
+                        <a href="addFriend?requestFriendName=${user.getLogin()}">
+                            <button type="button" class="mx-auto btn btn-outline-success btn-sm">
+                                Add to friends
+                            </button>
+                        </a>
+                    </li>
+                </c:if>
             </c:forEach>
-            <c:remove var="users"></c:remove>
+            <c:set var="user" value="null"/>
         </c:if>
     </ul>
 </div>
