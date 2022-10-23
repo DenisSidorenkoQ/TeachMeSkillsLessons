@@ -16,6 +16,7 @@ import java.util.List;
 public class OutputFriendsServlet extends HttpServlet {
 
     private UserService userService;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         userService = (UserService) config.getServletContext().getAttribute("userService");

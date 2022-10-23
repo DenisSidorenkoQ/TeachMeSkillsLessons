@@ -32,7 +32,7 @@ public class DependencyInitializationContextListener implements ServletContextLi
             UserService userService = new UserService(userRepository);
             FriendRequestRepository friendRequestRepository = new JdbcFriendRequestRepository(connection);
             FriendRepository friendRepository = new JdbcFriendRepository(connection);
-            FriendService friendService = new FriendService(friendRequestRepository, userRepository, friendRepository);
+            FriendService friendService = new FriendService(friendRequestRepository, friendRepository);
             FriendRequestService friendRequestService = new FriendRequestService(friendRequestRepository);
 
             sce.getServletContext().setAttribute("userService", userService);

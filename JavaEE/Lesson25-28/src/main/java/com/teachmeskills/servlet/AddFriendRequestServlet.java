@@ -19,8 +19,9 @@ public class AddFriendRequestServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         friendRequestService = (FriendRequestService) config.getServletContext().getAttribute("friendRequestService");
     }
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = (int) req.getSession().getAttribute("userId");
         int recipientId = Integer.parseInt(req.getParameter("requestFriendId"));
 
@@ -36,5 +37,4 @@ public class AddFriendRequestServlet extends HttpServlet {
         }
         req.getServletContext().getRequestDispatcher("/Users.jsp").forward(req, resp);
     }
-
 }

@@ -25,6 +25,7 @@ public class OutgoingRequestServlet extends HttpServlet {
         userService = (UserService) config.getServletContext().getAttribute("userService");
         friendRequestService = (FriendRequestService) config.getServletContext().getAttribute("friendRequestService");
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = (int) req.getSession().getAttribute("userId");

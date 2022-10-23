@@ -20,7 +20,6 @@ public class AddFriendServlet extends HttpServlet {
         friendService = (FriendService) config.getServletContext().getAttribute("friendService");
     }
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = (int) req.getSession().getAttribute("userId");

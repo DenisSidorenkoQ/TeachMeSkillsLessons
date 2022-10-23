@@ -36,11 +36,11 @@
                 <c:if test="${user.getLogin() != username}">
                     <li class="list-group-item">
                         <c:out value="${user.getLogin()}" />
-                        <a href="friendRequest?requestFriendId=${user.getUserId()}&requestFriendName=${user.getLogin()}">
-                            <button type="button" class="mx-auto btn btn-outline-success btn-sm">
+                        <form action='friendRequest?requestFriendId=${user.getUserId()}&requestFriendName=${user.getLogin()}' method='post'>
+                            <button type="submit" class="mx-auto btn btn-outline-success btn-sm">
                                 Add to friends
                             </button>
-                        </a>
+                        </form>
                     </li>
                 </c:if>
             </c:forEach>
