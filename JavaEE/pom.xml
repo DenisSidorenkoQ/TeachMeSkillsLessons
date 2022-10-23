@@ -13,7 +13,6 @@
         <module>Lesson23</module>
         <module>Lesson25-28</module>
         <module>TestsFromLesson27</module>
-        <module>Lesson28SQLQuery</module>
     </modules>
 
     <properties>
