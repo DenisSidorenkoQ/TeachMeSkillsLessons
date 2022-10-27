@@ -24,6 +24,15 @@ public class OutputFriendsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doMethod(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doMethod(req, resp);
+    }
+
+    private void doMethod(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = (int) req.getSession().getAttribute("userId");
 
         List<User> friendsList = userService.getAllFriends(userId);

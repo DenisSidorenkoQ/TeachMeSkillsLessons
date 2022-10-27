@@ -19,4 +19,8 @@ public class FriendService {
         return friendRepository.addFriend(senderId, recipientId);
     }
 
+    public boolean delFriend(int userId, int friendId) {
+        return friendRepository.delFriend(userId, friendId);
+    }
+
 }
