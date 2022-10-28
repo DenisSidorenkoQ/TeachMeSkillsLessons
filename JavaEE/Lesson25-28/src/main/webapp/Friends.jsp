@@ -28,9 +28,17 @@
     <c:forEach items="${friendsList}" var="user" varStatus="loop">
       <li class="list-group-item">
         <c:out value="${user.getLogin()}" />
-        <form action='delFriend?friendId=${user.getUserId()}' method='post'>
+        <form action='delFriend' method='post'>
+          <input type="hidden" name="friendId" value="${user.userId}"/>
           <button type='submit' class="mx-auto btn btn-outline-danger btn-sm">
             Delete
+          </button>
+        </form>
+        <form action='chat' method="GET">
+          <input type="hidden" name="friendId" value="${user.userId}"/>
+          <input type="hidden" name="friendName" value="${user.getLogin()}"/>
+          <button type='submit' class="mx-auto btn btn-outline-primary btn-sm">
+            Chat
           </button>
         </form>
       </li>
