@@ -27,7 +27,6 @@ public class AddAndDeleteFriendServlet extends HttpServlet {
 
         friendService.delFriend(userId, friendId);
         log.info("Delete friend. Id=[{}]", friendId);
-        resp.sendRedirect("/friends");
         req.getServletContext().getRequestDispatcher("/friends").include(req, resp);
     }
 
