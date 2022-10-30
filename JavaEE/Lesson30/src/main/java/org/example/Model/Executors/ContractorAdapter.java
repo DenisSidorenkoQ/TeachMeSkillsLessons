@@ -1,6 +1,9 @@
 package org.example.Model.Executors;
 
-public class Contractor extends Employee {
+import lombok.Builder;
+
+@Builder
+public class ContractorAdapter extends Employee {
     @Override
     public boolean execute() {
         System.out.println("Let's do this");

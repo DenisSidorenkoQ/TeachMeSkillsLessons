@@ -1,7 +1,9 @@
 package org.example.Model.Executors;
 
+import lombok.Builder;
 import org.example.Model.State;
 
+@Builder
 public class Employee implements Executor {
     State state;
     @Override
