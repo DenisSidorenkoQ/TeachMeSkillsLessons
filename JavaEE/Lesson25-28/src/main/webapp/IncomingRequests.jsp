@@ -28,8 +28,9 @@
         <c:forEach items="${listOfUsersWithIncomingRequest}" var="user" varStatus="loop">
             <li class="list-group-item">
                 <c:out value="${user.getLogin()}" />
-                <form action='addFriend' method='post'>
+                <form action='friend' method='post'>
                     <input type="hidden" name="requestUserId" value="${user.userId}"/>
+                    <input type="hidden" name="method" value="post"/>
                     <button type='submit' class="mx-auto btn btn-outline-success btn-sm">
                         Add
                     </button>

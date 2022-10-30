@@ -45,8 +45,7 @@ public class JdbcMessageRepository implements MessageRepository {
             }
             return messageList;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return new ArrayList<>();
         }
     }
@@ -60,8 +59,7 @@ public class JdbcMessageRepository implements MessageRepository {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
         }
     }
 
@@ -75,8 +73,7 @@ public class JdbcMessageRepository implements MessageRepository {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
         }
     }
 }

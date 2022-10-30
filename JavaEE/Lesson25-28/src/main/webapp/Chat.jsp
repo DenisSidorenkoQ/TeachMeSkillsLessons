@@ -22,10 +22,10 @@
         <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-left align-items-left p-4">
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    <strong class="me-auto">${username}</strong>
+                    <strong class="me-auto"><c:out value="${username}" /></strong>
                 </div>
                 <div class="toast-body">
-                        ${message.text}
+                    <c:out value="${message.text}" />
                 </div>
             </div>
         </div>
@@ -37,14 +37,14 @@
                         <strong class="me-auto">${friendName}</strong>
                     </div>
                     <div class="toast-body">
-                            ${message.text}
+                        <c:out value="${message.text}" />
                     </div>
                 </div>
             </div>
         </div>
     </c:if>
 </c:forEach>
-<form action='sendMessage' method="post">
+<form action='messages' method="post">
     <div class="p-4">
         <label for="message" class="form-label">Text</label>
         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
@@ -53,23 +53,6 @@
         </button>
     </div>
 </form>
-
-<%--<div class = "toast show p-2">--%>
-<%--    <div class = "toast-header">--%>
-<%--        <strong class = "me-auto"> Heading Toast </strong>--%>
-<%--    </div>--%>
-<%--    <div class = "toast-body">--%>
-<%--        <p> Bootstrap 5 Toast Function </p>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class = "toast show p-2">--%>
-<%--    <div class = "toast-header">--%>
-<%--        <strong class = "me-auto"> Heading Toast </strong>--%>
-<%--    </div>--%>
-<%--    <div class = "toast-body">--%>
-<%--        <p> Bootstrap 5 Toast Function </p>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

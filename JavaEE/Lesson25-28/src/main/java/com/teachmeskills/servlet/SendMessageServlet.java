@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@WebServlet(urlPatterns = "/sendMessage")
+@WebServlet(urlPatterns = "/messages")
 public class SendMessageServlet extends HttpServlet {
     private MessageService messageService;
 

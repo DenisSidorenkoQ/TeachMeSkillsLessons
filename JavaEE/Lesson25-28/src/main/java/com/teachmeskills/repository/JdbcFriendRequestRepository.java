@@ -30,8 +30,7 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             ResultSet rs = statement.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return false;
         }
     }
@@ -45,8 +44,7 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return false;
         }
     }
@@ -60,8 +58,7 @@ public class JdbcFriendRequestRepository implements FriendRequestRepository {
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return false;
         }
     }

@@ -12,6 +12,7 @@ import com.teachmeskills.service.FriendRequestService;
 import com.teachmeskills.service.FriendService;
 import com.teachmeskills.service.MessageService;
 import com.teachmeskills.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+@Slf4j
 @WebListener
 public class DependencyInitializationContextListener implements ServletContextListener {
     @Override
@@ -46,7 +48,7 @@ public class DependencyInitializationContextListener implements ServletContextLi
             sce.getServletContext().setAttribute("friendService", friendService);
             sce.getServletContext().setAttribute("friendRequestService", friendRequestService);
             sce.getServletContext().setAttribute("messageService", messageService);
-            System.out.println(connection.getCatalog());
+            log.info(connection.getCatalog());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Dependencies not created");
