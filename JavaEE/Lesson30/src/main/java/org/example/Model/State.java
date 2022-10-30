@@ -1,4 +1,4 @@
-package org.example.Model.States;
+package org.example.Model;
 
 public enum State {
     VACATION,

@@ -1,6 +1,6 @@
 package org.example.Model.Executors;
 
-import org.example.Model.States.State;
+import org.example.Model.State;
 
 public class Employee implements Executor {
     State state;
