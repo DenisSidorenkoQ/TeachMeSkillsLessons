@@ -28,7 +28,8 @@
     <c:forEach items="${listOfUsersWithOutgoingRequest}" var="user" varStatus="loop">
       <li class="list-group-item">
         <c:out value="${user.getLogin()}" />
-        <form action='outgoingRequest?requestUserId=${user.getUserId()}' method='post'>
+        <form action='outgoingRequest' method='post'>
+          <input type="hidden" name="requestUserId" value="${user.userId}"/>
           <button type="submit" class="mx-auto btn btn-outline-danger btn-sm">
             Delete
           </button>

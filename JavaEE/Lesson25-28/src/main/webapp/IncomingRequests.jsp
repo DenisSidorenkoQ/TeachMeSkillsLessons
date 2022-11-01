@@ -28,12 +28,15 @@
         <c:forEach items="${listOfUsersWithIncomingRequest}" var="user" varStatus="loop">
             <li class="list-group-item">
                 <c:out value="${user.getLogin()}" />
-                <form action='friend?requestUserId=${user.getUserId()}' method='post'>
+                <form action='friend' method='post'>
+                    <input type="hidden" name="requestUserId" value="${user.userId}"/>
+                    <input type="hidden" name="method" value="post"/>
                     <button type='submit' class="mx-auto btn btn-outline-success btn-sm">
                         Add
                     </button>
                 </form>
-                <form action='incomingRequests?requestUserId=${user.getUserId()}' method='post'>
+                <form action='incomingRequests' method='post'>
+                    <input type="hidden" name="requestUserId" value="${user.userId}"/>
                     <button type='submit' class="mx-auto btn btn-outline-danger btn-sm">
                         Delete
                     </button>

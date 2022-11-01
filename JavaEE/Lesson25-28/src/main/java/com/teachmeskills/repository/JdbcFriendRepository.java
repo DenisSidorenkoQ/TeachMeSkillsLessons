@@ -12,6 +12,8 @@ public class JdbcFriendRepository implements FriendRepository {
 
     private static final String ADD_FRIEND_SQL =
             "insert into friend (first_user_id, second_user_id) values ( ?, ?)";
+    private static final String DEL_FRIEND_SQL =
+            "delete from friend where first_user_id=? and second_user_id=? or first_user_id=? and second_user_id=?";
 
     public JdbcFriendRepository(Connection connection) {
         this.connection = connection;
@@ -26,8 +28,23 @@ public class JdbcFriendRepository implements FriendRepository {
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delFriend(int userId, int friendId) {
+        try (PreparedStatement statement = connection.prepareStatement(DEL_FRIEND_SQL)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, friendId);
+            statement.setInt(3, friendId);
+            statement.setInt(4, userId);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            log.error("Error code: " + e.getErrorCode(), e);
             return false;
         }
     }
