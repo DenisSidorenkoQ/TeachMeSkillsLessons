@@ -1,4 +1,4 @@
-package com.teachmeskills.Util;
+package com.teachmeskills.util;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

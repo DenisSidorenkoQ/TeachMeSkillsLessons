@@ -1,6 +1,6 @@
 package com.teachmeskills.service;
 
-import com.teachmeskills.Util.EncryptUtilities;
+import com.teachmeskills.util.EncryptUtilities;
 import com.teachmeskills.model.User;
 import com.teachmeskills.repository.UserRepository;
 
