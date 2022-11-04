@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
     private final Connection connection;
@@ -17,7 +18,7 @@ public class JdbcUserRepository implements UserRepository {
     private static final String FIND_ALL_USERS_BY_PARAMETER_SQL = "select login from \"user\" where login like ?";
     private static final String USER_IS_EXISTS_SQL = "select login from \"user\" where login=? and password=?";
     private static final String FIND_USER_BY_NAME_SQL = "select * from \"user\" where login=?";
-    private static final String INSERT_NEW_USER_SQL = "insert into \"user\" values ( ?, ?)";
+    private static final String INSERT_NEW_USER_SQL = "insert into \"user\" (login, password) values (?, ?)";
     private static final String GET_USER_ID_BY_NAME_SQL = "select user_id from \"user\" where login=?";
     private static final String GET_ALL_INCOMING_REQUESTS_SQL
             = "select \"user\".user_id, \"user\".login from friend_request " +
@@ -50,7 +51,7 @@ public class JdbcUserRepository implements UserRepository {
             ResultSet rs = statement.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            log.error("Error code: " + e.getErrorCode());
             return false;
         }
     }
@@ -62,7 +63,7 @@ public class JdbcUserRepository implements UserRepository {
             ResultSet rs = statement.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            log.error("Error code: " + e.getErrorCode());
             return false;
         }
     }
@@ -94,7 +95,7 @@ public class JdbcUserRepository implements UserRepository {
             }
             return users;
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
@@ -114,7 +115,7 @@ public class JdbcUserRepository implements UserRepository {
             }
             return users;
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
@@ -149,7 +150,8 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
@@ -169,7 +171,8 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }
@@ -190,7 +193,8 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
+            e.getStackTrace();
+            log.error("Error code: " + e.getErrorCode());
             return new ArrayList<>();
         }
     }

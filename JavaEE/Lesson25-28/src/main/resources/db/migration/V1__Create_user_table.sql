@@ -5,6 +5,4 @@ create table "user"
     password varchar not null
 );
 
-INSERT INTO "user" (login, password) VALUES ('Denis', '1234'), ('Dasha', '1111'), ('German', '2211'), ('Alex', 'ffff');
-
 
