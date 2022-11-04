@@ -150,8 +150,7 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return new ArrayList<>();
         }
     }
@@ -171,8 +170,7 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return new ArrayList<>();
         }
     }
@@ -193,8 +191,7 @@ public class JdbcUserRepository implements UserRepository {
             }
             return userList;
         } catch (SQLException e) {
-            e.getStackTrace();
-            log.error("Error code: " + e.getErrorCode());
+            log.error("Error code: " + e.getErrorCode(), e);
             return new ArrayList<>();
         }
     }
