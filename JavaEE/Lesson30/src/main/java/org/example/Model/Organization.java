@@ -8,7 +8,7 @@ public class Organization {
     private Founder founder;
     private TaxOffice taxOffice;
 
-    public void createNewTask(String task) {
-        founder.sendTask(task, taxOffice);
+    public void addNewTask(String task) {
+        founder.sendTask(task);
     }
 }
