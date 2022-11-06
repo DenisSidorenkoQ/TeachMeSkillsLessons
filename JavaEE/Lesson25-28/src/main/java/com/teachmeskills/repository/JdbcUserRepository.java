@@ -185,7 +185,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<String> GetUserHashedPassword(String username) {
+    public Optional<String> getUserHashedPassword(String username) {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_HASHED_PASSWORD_SQL)) {
             statement.setString(1, username);
 
