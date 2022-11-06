@@ -1,13 +1,13 @@
 package org.example.Model;
 
 import lombok.Builder;
-import lombok.extern.slf4j.Slf4j;
+import org.example.Model.Manager.Director;
 
 @Builder
-@Slf4j
-public class Founder implements TaxOfficeObserver {
-    @Override
-    public void logListener() {
-        log.info("Sent the work to the director");
+public class Founder {
+    Director director;
+
+    public void sendTask(String task, TaxOffice taxOffice) {
+        director.executeTask(task);
     }
 }

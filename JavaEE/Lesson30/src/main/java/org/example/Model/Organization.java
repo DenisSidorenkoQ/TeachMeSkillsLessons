@@ -1,10 +1,14 @@
 package org.example.Model;
 
 import lombok.Builder;
-import org.example.Model.Managers.Director;
+import org.example.Model.Manager.Director;
 
 @Builder
 public class Organization {
-    Founder founder;
-    Director director;
+    private Founder founder;
+    private TaxOffice taxOffice;
+
+    public void createNewTask(String task) {
+        founder.sendTask(task, taxOffice);
+    }
 }
