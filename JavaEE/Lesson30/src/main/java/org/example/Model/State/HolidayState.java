@@ -1,14 +1,10 @@
 package org.example.Model.State;
 
+import org.example.Model.OrganizationMember;
+
 public class HolidayState implements OrganizationMemberState {
-
     @Override
-    public void printState() {
-        System.out.println("I'm on holiday");
-    }
-
-    @Override
-    public boolean getState() {
+    public boolean executeTask(OrganizationMember organizationMember, String task) {
         return false;
     }
 }

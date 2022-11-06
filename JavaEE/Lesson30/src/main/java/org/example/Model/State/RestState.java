@@ -1,13 +1,12 @@
 package org.example.Model.State;
 
+import org.example.Model.OrganizationMember;
+
+import java.util.List;
+
 public class RestState implements OrganizationMemberState {
     @Override
-    public void printState() {
-        System.out.println("I am rest");
-    }
-
-    @Override
-    public boolean getState() {
+    public boolean executeTask(OrganizationMember organizationMember, String task) {
         return false;
     }
 }

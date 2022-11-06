@@ -1,6 +1,7 @@
 package org.example.Model.State;
 
+import org.example.Model.OrganizationMember;
+
 public interface OrganizationMemberState {
-    void printState();
-    boolean getState();
+    boolean executeTask(OrganizationMember organizationMember, String task);
 }
