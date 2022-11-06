@@ -2,7 +2,7 @@ package com.teachmeskills.servlet;
 
 
 import com.teachmeskills.model.User;
-import com.teachmeskills.service.UserService;
+import com.teachmeskills.service.user.UserService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class JdbcUserRepository implements UserRepository {
     private final Connection connection;
     private static final String FIND_ALL_USERS_SQL = "select * from \"user\"";
     private static final String FIND_ALL_USERS_BY_PARAMETER_SQL = "select login from \"user\" where login like ?";
-    private static final String USER_IS_EXISTS_SQL = "select login from \"user\" where login=? and password=?";
     private static final String FIND_USER_BY_NAME_SQL = "select * from \"user\" where login=?";
     private static final String INSERT_NEW_USER_SQL = "insert into \"user\" (login, password) values (?, ?)";
     private static final String GET_USER_ID_BY_NAME_SQL = "select user_id from \"user\" where login=?";
@@ -37,24 +37,12 @@ public class JdbcUserRepository implements UserRepository {
             "join friend " +
             "on second_user_id = user_id " +
             "where first_user_id=?";
+    private static final String GET_USER_HASHED_PASSWORD_SQL = "select password from \"user\" where login = ?";
 
     public JdbcUserRepository(Connection connection) {
         this.connection = connection;
     }
 
-    @Override
-    public boolean isExists(String login, String password) {
-        try (PreparedStatement statement = connection.prepareStatement(USER_IS_EXISTS_SQL)) {
-            statement.setString(1, login);
-            statement.setString(2, password);
-
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
-            return false;
-        }
-    }
     @Override
     public boolean isExists(String login) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_USER_BY_NAME_SQL)) {
@@ -194,5 +182,20 @@ public class JdbcUserRepository implements UserRepository {
             log.error("Error code: " + e.getErrorCode(), e);
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Optional<String> GetUserHashedPassword(String username) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_USER_HASHED_PASSWORD_SQL)) {
+            statement.setString(1, username);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return Optional.of(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            log.error("Error code: " + e.getErrorCode(), e);
+        }
+        return Optional.empty();
     }
 }
