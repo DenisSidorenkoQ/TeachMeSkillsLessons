@@ -1,17 +1,18 @@
 package com.teachmeskills.listner;
 
-import com.teachmeskills.repository.MessageRepository;
-import com.teachmeskills.repository.JdbcMessageRepository;
+import com.teachmeskills.service.user.PasswordEncrypter;
 import com.teachmeskills.repository.UserRepository;
 import com.teachmeskills.repository.JdbcUserRepository;
-import com.teachmeskills.repository.FriendRequestRepository;
-import com.teachmeskills.repository.JdbcFriendRequestRepository;
+import com.teachmeskills.repository.MessageRepository;
+import com.teachmeskills.repository.JdbcMessageRepository;
 import com.teachmeskills.repository.FriendRepository;
+import com.teachmeskills.repository.FriendRequestRepository;
 import com.teachmeskills.repository.JdbcFriendRepository;
+import com.teachmeskills.repository.JdbcFriendRequestRepository;
 import com.teachmeskills.service.FriendRequestService;
 import com.teachmeskills.service.FriendService;
 import com.teachmeskills.service.MessageService;
-import com.teachmeskills.service.UserService;
+import com.teachmeskills.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -32,14 +33,14 @@ public class DependencyInitializationContextListener implements ServletContextLi
 
         try {
             Class.forName(dbDriver);
+            byte[] salt = sce.getServletContext().getInitParameter("encryptionSalt").getBytes();
+            PasswordEncrypter passwordEncrypter = new PasswordEncrypter(salt);
             Connection connection = DriverManager.getConnection(dbUrl, username, password);
-
+            MessageRepository messageRepository = new JdbcMessageRepository(connection);
+            UserRepository userRepository = new JdbcUserRepository(connection);
+            UserService userService = new UserService(userRepository, passwordEncrypter);
             FriendRequestRepository friendRequestRepository = new JdbcFriendRequestRepository(connection);
             FriendRepository friendRepository = new JdbcFriendRepository(connection);
-            MessageRepository messageRepository = new JdbcMessageRepository(connection);
-
-            UserRepository userRepository = new JdbcUserRepository(connection);
-            UserService userService = new UserService(userRepository);
             FriendService friendService = new FriendService(friendRequestRepository, friendRepository, messageRepository);
             FriendRequestService friendRequestService = new FriendRequestService(friendRequestRepository);
             MessageService messageService = new MessageService(messageRepository);

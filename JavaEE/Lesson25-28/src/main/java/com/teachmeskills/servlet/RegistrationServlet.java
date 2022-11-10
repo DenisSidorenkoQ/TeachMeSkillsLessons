@@ -1,6 +1,6 @@
 package com.teachmeskills.servlet;
 
-import com.teachmeskills.service.UserService;
+import com.teachmeskills.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

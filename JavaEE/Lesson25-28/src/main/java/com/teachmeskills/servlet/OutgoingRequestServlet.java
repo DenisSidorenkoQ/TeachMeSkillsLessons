@@ -2,7 +2,7 @@ package com.teachmeskills.servlet;
 
 import com.teachmeskills.model.User;
 import com.teachmeskills.service.FriendRequestService;
-import com.teachmeskills.service.UserService;
+import com.teachmeskills.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletConfig;
