@@ -9,16 +9,14 @@
 	<context:component-scan base-package="org.example"/>
 	<context:property-placeholder location="classpath:/application.properties"/>
 	<mvc:annotation-driven/>
-	<mvc:view-controller path="/AuthorizationPage" view-name="Authorization"/>
-	<mvc:view-controller path="/RegistrationPage" view-name="Registration"/>
+	<mvc:view-controller path="/AuthorizationPage" view-name="Authorization.jsp"/>
+	<mvc:view-controller path="/RegistrationPage" view-name="Registration.jsp"/>
+	<mvc:view-controller path="/UserList" view-name="Users.jsp"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/views/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
 		</property>
 	</bean>
 

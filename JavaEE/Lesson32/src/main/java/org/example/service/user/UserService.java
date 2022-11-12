@@ -45,12 +45,8 @@ public class UserService {
         return userRepository.isExists(username);
     }
 
-    public List<User> getAllUsers(String queryParameter) {
-        if (queryParameter != null) {
-            return userRepository.getAllUsers(queryParameter);
-        } else {
-            return userRepository.getAllUsers();
-        }
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
     }
 
     public int getUserIdByLogin(String login) {

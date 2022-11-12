@@ -86,26 +86,6 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public List<User> getAllUsers(String parameter) {
-        try (PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS_BY_PARAMETER_SQL)) {
-            statement.setString(1, parameter + "%");
-            ResultSet rs = statement.executeQuery();
-            List<User> users = new ArrayList<>();
-
-            while (rs.next()) {
-                users.add(User.builder()
-                        .userId(Integer.parseInt(rs.getString("user_id")))
-                        .login(rs.getString("login")).build()
-                );
-            }
-            return users;
-        } catch (SQLException e) {
-            log.error("Error code: " + e.getErrorCode(), e);
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
     public int getUserIdByLogin(String login) {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_ID_BY_NAME_SQL)) {
             statement.setString(1, login);

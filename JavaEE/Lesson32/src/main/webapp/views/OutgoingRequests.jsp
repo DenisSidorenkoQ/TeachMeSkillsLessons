@@ -1,12 +1,14 @@
-<%@ page import="java.io.Writer" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Denis
-  Date: 08.10.2022
-  Time: 23:16
+  Date: 09.10.2022
+  Time: 16:43
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c-rt" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,21 +16,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<form action="authorization" method="get">
-    <div class="position-relative">
-        <div class="position-absolute bottom-50 end-50">
-            <div class="card" style="width:27rem;">
-                <div class="card-body">
-                    <div class="form-group">
-                        <input type="text" name="login" id="login" placeholder="Enter login">
-                        <input type="text" name="password" id="password" placeholder="Enter password">
-                    </div>
-                    <button type="submit" class="btn btn-outline-success">Authorization</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+
+<div class="card" style="width: 30rem;">
+  <jsp:include page="header.jsp">
+    <jsp:param name="page" value="4"/>
+  </jsp:include>
+  <div class="card-header text-success">
+    Outgoing requests
+  </div>
+  <ul class="list-group list-group-flush">
+    <c:forEach items="${listOfUsersWithOutgoingRequest}" var="user" varStatus="loop">
+      <li class="list-group-item">
+        <c:out value="${user.getLogin()}" />
+        <form action='outgoingRequest' method='post'>
+          <input type="hidden" name="requestUserId" value="${user.userId}"/>
+          <button type="submit" class="mx-auto btn btn-outline-danger btn-sm">
+            Delete
+          </button>
+        </form>
+      </li>
+    </c:forEach>
+  </ul>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
