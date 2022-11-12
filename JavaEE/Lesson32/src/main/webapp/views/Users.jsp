@@ -32,7 +32,7 @@
             <c:if test="${user.getLogin() != login}">
                 <li class="list-group-item">
                     <c:out value="${user.getLogin()}" />
-                    <form action='friendRequest?requestFriendId=${user.getUserId()}&requestFriendName=${user.getLogin()}' method='post'>
+                    <form action='friendRequest?recipientId=${user.getUserId()}' method='post'>
                         <button type="submit" class="mx-auto btn btn-outline-success btn-sm">
                             Add to friends
                         </button>

@@ -5,6 +5,7 @@ import org.example.repository.JdbcUserRepository;
 import org.example.repository.UserRepository;
 import org.example.service.user.PasswordEncrypter;
 import org.example.service.user.UserService;
+import org.example.session.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,5 +35,10 @@ public class JdbcConfig {
     @Bean
     public PasswordEncrypter passwordEncrypter(@Value("${salt}") final String salt) {
         return new PasswordEncrypter(salt.getBytes());
+    }
+
+    @Bean
+    public AuthorizedUser authorizedUser() {
+        return new AuthorizedUser();
     }
 }

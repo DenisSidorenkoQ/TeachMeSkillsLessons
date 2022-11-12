@@ -1,7 +1,6 @@
 package org.example.service.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import org.springframework.context.annotation.Bean;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
