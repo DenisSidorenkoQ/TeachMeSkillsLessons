@@ -30,31 +30,31 @@ public class JdbcConfig {
         return dataSource.getConnection();
     }
 
-//    @Bean
-//    public PasswordEncrypter passwordEncrypter(@Value("${salt}") final String salt) {
-//        return new PasswordEncrypter(salt.getBytes());
-//    }
-//
-//    @Bean
-//    public UserRepository userRepository(
-//            @Value("${driverClassname}") final String driveClassName,
-//            @Value("${databaseUrl}") final String databaseUrl,
-//            @Value("${username}") final String username,
-//            @Value("${password}") final String password
-//    ) throws SQLException {
-//        return new JdbcUserRepository(connection(driveClassName, databaseUrl, username, password));
-//    }
-//
-//    @Bean
-//    public UserService userService(@Value("${driverClassname}") final String driveClassName,
-//                                   @Value("${databaseUrl}") final String databaseUrl,
-//                                   @Value("${username}") final String username,
-//                                   @Value("${password}") final String password,
-//                                   @Value("${salt}") final String salt
-//    ) throws SQLException {
-//        return new UserService(
-//                userRepository(driveClassName, databaseUrl, username, password),
-//                new PasswordEncrypter(salt.getBytes())
-//        );
-//    }
+    @Bean
+    public PasswordEncrypter passwordEncrypter(@Value("${salt}") final String salt) {
+        return new PasswordEncrypter(salt.getBytes());
+    }
+
+    @Bean
+    public UserRepository userRepository(
+            @Value("${driverClassname}") final String driveClassName,
+            @Value("${databaseUrl}") final String databaseUrl,
+            @Value("${username}") final String username,
+            @Value("${password}") final String password
+    ) throws SQLException {
+        return new JdbcUserRepository(connection(driveClassName, databaseUrl, username, password));
+    }
+
+    @Bean
+    public UserService userService(@Value("${driverClassname}") final String driveClassName,
+                                   @Value("${databaseUrl}") final String databaseUrl,
+                                   @Value("${username}") final String username,
+                                   @Value("${password}") final String password,
+                                   @Value("${salt}") final String salt
+    ) throws SQLException {
+        return new UserService(
+                userRepository(driveClassName, databaseUrl, username, password),
+                new PasswordEncrypter(salt.getBytes())
+        );
+    }
 }
