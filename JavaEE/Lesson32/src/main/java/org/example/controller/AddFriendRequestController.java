@@ -2,7 +2,6 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.dto.UserDto;
 import org.example.service.FriendRequestService;
 import org.example.session.AuthorizedUser;
 import org.springframework.stereotype.Controller;

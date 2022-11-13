@@ -13,18 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/incomingRequests")
 @RequiredArgsConstructor
-public class IncomingRequestsController extends HttpServlet {
+public class IncomingRequestsController {
     private final UserService userService;
     private final FriendRequestService friendRequestService;
     private final AuthorizedUser authorizedUser;

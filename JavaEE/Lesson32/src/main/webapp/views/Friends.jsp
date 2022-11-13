@@ -30,7 +30,7 @@
         <c:out value="${user.getLogin()}" />
         <form action='friend' method="post">
           <input type="hidden" name="friendId" value="${user.userId}"/>
-          <input type="hidden" name="method" value="<c:out value="delete"/>"/>
+          <input type="hidden" name="method" value="delete"/>
           <button type='submit' class="mx-auto btn btn-outline-danger btn-sm">
             Delete
           </button>

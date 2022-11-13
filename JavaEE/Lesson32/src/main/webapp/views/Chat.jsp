@@ -34,7 +34,7 @@
         <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center p-4">
                 <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
-                        <strong class="me-auto">${friendName}</strong>
+                        <strong class="me-auto"><c:out value="${friendName}" /></strong>
                     </div>
                     <div class="toast-body">
                         <c:out value="${message.text}" />
@@ -47,6 +47,8 @@
 <form action='messages' method="post">
     <div class="p-4">
         <label for="message" class="form-label">Text</label>
+        <input type="hidden" name="friendId" value="${friendId}"/>
+        <input type="hidden" name="friendName" value="${friendName}"/>
         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
         <button type='submit' class="mx-auto btn btn-outline-primary btn-sm">
             Send message
