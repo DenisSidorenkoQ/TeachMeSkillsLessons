@@ -1,7 +1,6 @@
 package com.teachmeskills.repository;
 
 import com.teachmeskills.model.User;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;

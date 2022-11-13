@@ -1,14 +1,5 @@
 package com.teachmeskills.listner;
 
-import com.teachmeskills.service.user.PasswordEncrypter;
-import com.teachmeskills.repository.UserRepository;
-import com.teachmeskills.repository.JdbcUserRepository;
-import com.teachmeskills.repository.MessageRepository;
-import com.teachmeskills.repository.JdbcMessageRepository;
-import com.teachmeskills.repository.FriendRepository;
-import com.teachmeskills.repository.FriendRequestRepository;
-import com.teachmeskills.repository.JdbcFriendRepository;
-import com.teachmeskills.repository.JdbcFriendRequestRepository;
 import com.teachmeskills.service.FriendRequestService;
 import com.teachmeskills.service.FriendService;
 import com.teachmeskills.service.MessageService;
@@ -17,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

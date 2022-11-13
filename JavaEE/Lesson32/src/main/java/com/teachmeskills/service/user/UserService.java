@@ -2,7 +2,6 @@ package com.teachmeskills.service.user;
 
 import com.teachmeskills.model.User;
 import com.teachmeskills.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;

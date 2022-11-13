@@ -21,8 +21,37 @@
         <jstl.version>1.2</jstl.version>
         <postgresql.version>42.5.0</postgresql.version>
         <jackson-version>2.14.0</jackson-version>
-        <aspectjrt.version>1.8.9</aspectjrt.version>
+        <checkstyle.version>10.3.3</checkstyle.version>
+        <spotbugs.maven.plugin.version>4.7.1.1</spotbugs.maven.plugin.version>
+        <checkstyle.maven.plugin.version>3.2.0</checkstyle.maven.plugin.version>
+        <checkstyle.config.location>codequality/checkstyle.xml</checkstyle.config.location>
+        <pmd.maven.plugin.version>3.18.0</pmd.maven.plugin.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.9.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.36</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-commons</artifactId>
+                <version>1.9.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.10.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -120,6 +149,119 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.5.13</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.maven.plugin.version}</version>
+                <configuration>
+                    <maxAllowedViolations>0</maxAllowedViolations>
+                    <failsOnError>true</failsOnError>
+                    <logViolationCountToConsole>true</logViolationCountToConsole>
+                    <consoleOutput>true</consoleOutput>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>checkstyle-validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                            <logViolationCountToConsole>true</logViolationCountToConsole>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.maven.plugin.version}</version>
+                <configuration>
+                    <linkXRef>false</linkXRef>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <includeTests>false</includeTests>
+                    <failurePriority>${pmd.failurePriority}</failurePriority>
+                    <failOnViolation>true</failOnViolation>
+                    <rulesets>
+                        <ruleset>codequality/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pmd-validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs.maven.plugin.version}</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>true</failOnError>
+                    <includeFilterFiles>codequality/spotbug.xml</includeFilterFiles>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.7.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>no-duplicate-declared-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <banDuplicatePomDependencyVersions/>
+                                <DependencyConvergence/>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <!-- This should not exist as it will force SLF4J calls to be delegated to log4j -->
+                                        <exclude>org.slf4j:slf4j-log4j12</exclude>
+                                        <!-- This should not exist as it will force SLF4J calls to be delegated to jul -->
+                                        <exclude>org.slf4j:slf4j-jdk14</exclude>
+                                        <!-- Ensure only the slf4j binding for logback is on the classpath -->
+                                        <exclude>log4j:log4j</exclude>
+                                        <!-- As recommended from the slf4j guide, exclude commons-logging -->
+                                        <exclude>commons-logging:commons-logging</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

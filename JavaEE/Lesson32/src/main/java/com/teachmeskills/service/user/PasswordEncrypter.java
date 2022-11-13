@@ -4,7 +4,6 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.RequiredArgsConstructor;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 @RequiredArgsConstructor
