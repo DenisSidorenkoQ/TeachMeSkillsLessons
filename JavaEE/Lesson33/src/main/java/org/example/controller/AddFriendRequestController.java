@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.service.FriendRequestService;
 import org.example.session.AuthorizedUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,7 @@ public class AddFriendRequestController {
     private final AuthorizedUser authorizedUser;
 
     @PostMapping
-    protected String sendFriendRequest(Model model, @RequestParam int recipientId) {
+    protected String sendFriendRequest(@RequestParam int recipientId) {
 
         if (friendRequestService.friendRequestIsExists(authorizedUser.getUserId(), recipientId)) {
             log.info("Request is exists. Id=[{}]", recipientId);

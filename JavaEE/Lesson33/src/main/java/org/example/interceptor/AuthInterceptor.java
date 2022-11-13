@@ -12,11 +12,17 @@ public class AuthInterceptor implements HandlerInterceptor {
     private final AuthorizedUser authorizedUser;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(authorizedUser.getUserId() != null && authorizedUser.getUsername() != null) {
+    @SuppressWarnings("PMD")
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler
+    ) throws Exception {
+        if (authorizedUser.getUserId() != null && authorizedUser.getUsername() != null) {
             return true;
         }
         response.sendRedirect("AuthorizationPage");
         return false;
     }
+
+
 }

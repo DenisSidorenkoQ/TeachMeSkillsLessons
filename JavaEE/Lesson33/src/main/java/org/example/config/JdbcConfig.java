@@ -1,14 +1,9 @@
 package org.example.config;
 
-import org.example.model.User;
-import org.example.repository.JdbcUserRepository;
-import org.example.repository.UserRepository;
 import org.example.service.user.PasswordEncrypter;
-import org.example.service.user.UserService;
 import org.example.session.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.context.annotation.SessionScope;

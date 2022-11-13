@@ -26,7 +26,8 @@ public class IncomingRequestsController {
 
     @GetMapping
     protected String getListOfUsersWithIncomingRequest(Model model) {
-        List<User> listOfUsersWithIncomingRequest = userService.getUsersOfAllIncomingRequests(authorizedUser.getUserId());
+        List<User> listOfUsersWithIncomingRequest =
+                userService.getUsersOfAllIncomingRequests(authorizedUser.getUserId());
 
         model.addAttribute("listOfUsersWithIncomingRequest", listOfUsersWithIncomingRequest);
         return "/IncomingRequests.jsp";
