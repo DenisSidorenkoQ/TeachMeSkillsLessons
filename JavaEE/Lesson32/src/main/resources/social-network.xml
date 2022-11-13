@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Connection   -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://postgres:5432/social_network"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
+    </bean>
+    <bean id="connection" factory-bean="dataSource" factory-method="getConnection"/>
+
+    <!-- User Service   -->
+    <bean id="seed" class="java.security.SecureRandom">
+        <constructor-arg index="0" value="SALT"/>
+    </bean>
+    <bean id="hasher" class="at.favre.lib.crypto.bcrypt.BCrypt" factory-method="with">
+        <constructor-arg index="0" ref="seed"/>
+    </bean>
+    <bean id="passwordEncrypter" class="com.teachmeskills.service.user.PasswordEncrypter">
+        <constructor-arg index="0" ref="hasher"/>
+    </bean>
+    <bean id="userRepository" class="com.teachmeskills.repository.JdbcUserRepository">
+        <constructor-arg index="0" ref="connection"/>
+    </bean>
+    <bean id="userService" class="com.teachmeskills.service.user.UserService">
+        <constructor-arg index="0" ref="userRepository"/>
+        <constructor-arg index="1" ref="passwordEncrypter"/>
+    </bean>
+
+    <!-- Friend Service   -->
+    <bean id="friendRepository" class="com.teachmeskills.repository.JdbcFriendRepository">
+        <constructor-arg index="0" ref="connection"/>
+    </bean>
+    <bean id="friendRequestRepository" class="com.teachmeskills.repository.JdbcFriendRequestRepository">
+        <constructor-arg index="0" ref="connection"/>
+    </bean>
+    <bean id="messageRepository" class="com.teachmeskills.repository.JdbcMessageRepository">
+        <constructor-arg index="0" ref="connection"/>
+    </bean>
+    <bean id="friendService" class="com.teachmeskills.service.FriendService">
+        <constructor-arg index="0" ref="friendRequestRepository"/>
+        <constructor-arg index="1" ref="friendRepository"/>
+        <constructor-arg index="2" ref="messageRepository"/>
+    </bean>
+
+    <!--  Message Service  -->
+    <bean id="messageService" class="com.teachmeskills.service.MessageService">
+        <constructor-arg index="0" ref="messageRepository"/>
+    </bean>
+
+    <!--  Message Service  -->
+    <bean id="friendRequestService" class="com.teachmeskills.service.FriendRequestService">
+        <constructor-arg index="0" ref="friendRequestRepository"/>
+    </bean>
+</beans>
+
+
