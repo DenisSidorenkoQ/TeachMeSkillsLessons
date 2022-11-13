@@ -9,10 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Lesson22</module>
-        <module>Lesson23</module>
-        <module>Lesson25-28</module>
-        <module>TestsFromLesson27</module>
         <module>Lesson32</module>
     </modules>
 
