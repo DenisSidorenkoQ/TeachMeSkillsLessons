@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class AuthorizedUser {
-    private int userId;
+    private Integer userId;
     private String username;
 }

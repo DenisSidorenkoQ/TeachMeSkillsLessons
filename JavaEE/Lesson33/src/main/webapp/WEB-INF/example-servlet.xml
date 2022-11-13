@@ -12,6 +12,10 @@
 	<mvc:view-controller path="/AuthorizationPage" view-name="Authorization.jsp"/>
 	<mvc:view-controller path="/RegistrationPage" view-name="Registration.jsp"/>
 	<mvc:view-controller path="/UserList" view-name="Users.jsp"/>
+	<mvc:view-controller path="/Chat" view-name="Chat.jsp"/>
+	<mvc:view-controller path="/Friends" view-name="Friends.jsp"/>
+	<mvc:view-controller path="/IncomingRequests" view-name="IncomingRequests.jsp"/>
+	<mvc:view-controller path="/OutgoingRequests" view-name="OutgoingRequests.jsp"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -19,5 +23,18 @@
 			<value>/views/</value>
 		</property>
 	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/UserList"/>
+			<mvc:mapping path="/Chat"/>
+			<mvc:mapping path="/Friends"/>
+			<mvc:mapping path="/IncomingRequests"/>
+			<mvc:mapping path="/OutgoingRequests"/>
+			<bean id="loggerInterceptor" class="org.example.interceptor.AuthInterceptor">
+				<constructor-arg index="0" ref="authorizedUser"/>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

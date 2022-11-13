@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Controller
 @RequestMapping("/registration")
@@ -18,7 +20,7 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String registerNewUser(final UserDto dto, Model model) {
+    protected String registerNewUser(@Valid final UserDto dto, Model model) {
         String username = dto.getLogin();
         String password = dto.getPassword();
 

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ public class JdbcConfig {
     }
 
     @Bean
+    @SessionScope
     public AuthorizedUser authorizedUser() {
         return new AuthorizedUser();
     }

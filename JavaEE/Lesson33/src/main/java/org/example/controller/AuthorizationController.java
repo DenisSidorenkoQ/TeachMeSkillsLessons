@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+import java.io.IOException;
+
 @Slf4j
 @Controller
 @RequestMapping("/authorization")
@@ -19,7 +22,7 @@ public class AuthorizationController {
     private final AuthorizedUser authorizedUser;
 
     @GetMapping
-    protected String userAuthorization(final UserDto dto, Model model) {
+    protected String userAuthorization(@Valid final UserDto dto, Model model) {
         String username = dto.getLogin();
         String password = dto.getPassword();
         int userId = userService.getUserIdByLogin(username);

@@ -23,15 +23,15 @@ public class AddAndDeleteFriendController {
     private final AuthorizedUser authorizedUser;
 
     @DeleteMapping
-    protected void doDelete(Model model, int friendId) {
+    protected void deleteFriend(Model model, int friendId) {
         friendService.delFriend(authorizedUser.getUserId(), friendId);
         log.info("Delete friend. Id=[{}]", friendId);
     }
 
     @PostMapping
-    protected String doPost(Model model, @RequestParam int friendId, @RequestParam String method) throws ServletException, IOException {
+    protected String addOrDeleteFriend(Model model, @RequestParam int friendId, @RequestParam String method) {
         if (method.equals("delete")) {
-            doDelete(model, friendId);
+            deleteFriend(model, friendId);
             return "redirect:friendList";
         } else {
             friendService.addFriend(friendId, authorizedUser.getUserId());

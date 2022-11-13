@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/messages")
 @RequiredArgsConstructor
-public class SendMessageServlet {
+public class SendMessageController {
     private final MessageService messageService;
     private final AuthorizedUser authorizedUser;
 
     @PostMapping
-    protected String doPost(Model model,
+    protected String sendMessage(Model model,
                             @RequestParam String message,
                             @RequestParam int friendId,
                             @RequestParam String friendName) {

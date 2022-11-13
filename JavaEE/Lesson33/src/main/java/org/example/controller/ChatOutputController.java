@@ -22,7 +22,7 @@ public class ChatOutputController {
     private final AuthorizedUser authorizedUser;
 
     @GetMapping
-    protected String getMessageList(Model model, @RequestParam int friendId, @RequestParam String friendName) throws ServletException, IOException {
+    protected String getMessageList(Model model, @RequestParam int friendId, @RequestParam String friendName) {
         List<Message> messageList = messageService.getMessages(authorizedUser.getUserId(), friendId);
 
         model.addAttribute("friendName", friendName);
