@@ -2,6 +2,7 @@ package org.example.config;
 
 import org.example.service.user.PasswordEncrypter;
 import org.example.session.AuthorizedUser;
+import org.example.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,5 +38,10 @@ public class JdbcConfig {
     @SessionScope
     public AuthorizedUser authorizedUser() {
         return new AuthorizedUser();
+    }
+
+    @Bean
+    public UserValidation userValidation() {
+        return new UserValidation();
     }
 }

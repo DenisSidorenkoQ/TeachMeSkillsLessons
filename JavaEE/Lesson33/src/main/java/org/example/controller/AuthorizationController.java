@@ -5,7 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.UserDto;
 import org.example.service.user.UserService;
 import org.example.session.AuthorizedUser;
+import org.example.validation.UserValidation;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,20 +21,26 @@ import javax.validation.Valid;
 public class AuthorizationController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
+    private final UserValidation userValidation;
 
     @GetMapping
-    protected String userAuthorization(@Valid final UserDto dto) {
-        String username = dto.getLogin();
-        String password = dto.getPassword();
-        int userId = userService.getUserIdByLogin(username);
+    protected String userAuthorization(
+            Model model,
+            @Valid UserDto dto,
+            BindingResult bindingResult) {
+        if (!userValidation.validate(bindingResult, model)) {
+            return "/Authorization.jsp";
+        }
 
-        if (userService.isExists(username, password)) {
-            log.info("User is exists. Login[{}]", username);
+        int userId = userService.getUserIdByLogin(dto.getLogin());
+
+        if (userService.isExists(dto.getLogin(), dto.getPassword())) {
+            log.info("User is exists. Login[{}]", dto.getLogin());
             authorizedUser.setUserId(userId);
-            authorizedUser.setUsername(username);
+            authorizedUser.setUsername(dto.getLogin());
             return "redirect:output";
         } else {
-            log.warn("User not exists. Login[{}]", username);
+            log.warn("User not exists. Login[{}]", dto.getLogin());
             return "/Authorization.jsp";
         }
     }

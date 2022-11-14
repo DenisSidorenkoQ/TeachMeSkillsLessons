@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -22,8 +22,16 @@
             <div class="card" style="width:27rem;">
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="text" name="login" id="login" placeholder="Enter login">
-                        <input type="text" name="password" id="password" placeholder="Enter password">
+                        <div>
+                            <input path="login" type="text" name="login" id="login" placeholder="Enter login"/>
+                            <p class="text-danger"><c:out value="${loginErrorText}"/></p>
+                        </div>
+
+                        <div>
+                            <input path="password" type="text" name="password" id="password" placeholder="Enter password"/>
+                            <p class="text-danger"><c:out value="${passwordErrorText}"/></p>
+                        </div>
+
                     </div>
                     <button type="submit" class="btn btn-outline-success">Authorization</button>
                 </div>
