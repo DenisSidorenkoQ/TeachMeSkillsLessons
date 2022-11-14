@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dto.UserDto;
 import org.example.service.user.UserService;
-import org.example.validation.UserValidation;
+import org.example.validator.UserValidator;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +20,13 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
-    private final UserValidation userValidation;
+    private final UserValidator userValidator;
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String registerNewUser(Model model,
                                      @Valid UserDto dto,
                                      BindingResult bindingResult) {
-        if (!userValidation.validate(bindingResult, model)) {
+        if (!userValidator.validate(bindingResult, model)) {
             return "/Registration.jsp";
         }
         String username = dto.getLogin();

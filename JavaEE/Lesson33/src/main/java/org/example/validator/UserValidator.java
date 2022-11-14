@@ -1,9 +1,9 @@
-package org.example.validation;
+package org.example.validator;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-public class UserValidation {
+public class UserValidator {
 
     public boolean validate(BindingResult bindingResult, Model model) {
 

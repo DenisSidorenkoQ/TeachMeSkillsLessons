@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.dto.UserDto;
 import org.example.service.user.UserService;
 import org.example.session.AuthorizedUser;
-import org.example.validation.UserValidation;
+import org.example.validator.UserValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,14 +21,14 @@ import javax.validation.Valid;
 public class AuthorizationController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
-    private final UserValidation userValidation;
+    private final UserValidator userValidator;
 
     @GetMapping
     protected String userAuthorization(
             Model model,
             @Valid UserDto dto,
             BindingResult bindingResult) {
-        if (!userValidation.validate(bindingResult, model)) {
+        if (!userValidator.validate(bindingResult, model)) {
             return "/Authorization.jsp";
         }
 
