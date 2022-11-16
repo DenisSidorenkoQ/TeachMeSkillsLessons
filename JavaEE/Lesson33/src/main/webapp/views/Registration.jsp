@@ -29,6 +29,10 @@
                                 <input type="text" name="password" id="password" placeholder="Enter password">
                                 <p class="text-danger"><c:out value="${passwordErrorText}"/></p>
                             </div>
+                            <div>
+                                <input type="text" name="confirmationPassword" id="confirmationPassword" placeholder="Enter password">
+                                <p class="text-danger"><c:out value="${confirmationPasswordErrorText}"/></p>
+                            </div>
 
                         </div>
                         <button type="submit" class="btn btn-outline-success">Registration</button>
