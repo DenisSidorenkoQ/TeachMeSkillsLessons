@@ -34,10 +34,9 @@ public class IncomingRequestsController {
     }
 
     @PostMapping
-    protected String deleteIncomingRequest(Model model, @RequestParam int requestUserId) {
+    protected String deleteIncomingRequest(@RequestParam int requestUserId) {
         log.info("del friend request. Id=[{}]", requestUserId);
         friendRequestService.delRequest(requestUserId, authorizedUser.getUserId());
-        getListOfUsersWithIncomingRequest(model);
-        return "/IncomingRequests.jsp";
+        return "redirect:incomingRequests";
     }
 }

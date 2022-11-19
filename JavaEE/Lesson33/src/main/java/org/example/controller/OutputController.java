@@ -24,7 +24,7 @@ public class OutputController {
     protected String outputUsers(Model model) {
         List<User> users = userService.getAllUsers();
 
-        model.addAttribute("login", authorizedUser.getUsername());
+        model.addAttribute("login", authorizedUser.getLogin());
         model.addAttribute("users", users);
         return "/Users.jsp";
     }

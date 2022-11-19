@@ -7,7 +7,7 @@ services:
       JPDA_ADDRESS: "*:8000"
       JPDA_TRANSPORT: "dt_socket"
     volumes:
-      - "./target/Lesson32-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/servlet.war"
+      - "./target/Lesson33-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/servlet.war"
     ports:
       - "8080:8080"
       - "9000:8000"

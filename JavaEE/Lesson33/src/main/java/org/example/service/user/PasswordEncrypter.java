@@ -1,20 +1,20 @@
 package org.example.service.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 
-
+@Component
 public class PasswordEncrypter {
     private final BCrypt.Hasher hasher;
 
-    public PasswordEncrypter(byte[] salt) {
-        hasher = BCrypt.with(new SecureRandom(salt));
+    public PasswordEncrypter(@Value("${salt}") final String salt) {
+        hasher = BCrypt.with(new SecureRandom(salt.getBytes()));
     }
 
-    public String getEncryptedPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public String getEncryptedPassword(String password) {
         final String hashedPassword = hasher.hashToString(12, password.toCharArray());
 
         return hashedPassword;

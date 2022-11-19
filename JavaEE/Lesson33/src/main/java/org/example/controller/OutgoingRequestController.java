@@ -34,11 +34,10 @@ public class OutgoingRequestController {
     }
 
     @PostMapping
-    protected String deleteFriendRequest(Model model, @RequestParam int requestUserId) {
+    protected String deleteFriendRequest(@RequestParam int requestUserId) {
 
         log.info("del friend request. Id=[{}]", authorizedUser.getUserId());
         friendRequestService.delRequest(authorizedUser.getUserId(), requestUserId);
-        getUsersOfAllOutgoingRequests(model);
-        return "/OutgoingRequests.jsp";
+        return "redirect:outgoingRequest";
     }
 }

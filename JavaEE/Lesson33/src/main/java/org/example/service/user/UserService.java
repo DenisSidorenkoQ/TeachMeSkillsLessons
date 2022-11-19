@@ -6,8 +6,6 @@ import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,22 +21,15 @@ public class UserService {
         if (isExists(username)) {
             return false;
         }
-        try {
-            String encryptedPassword = passwordEncrypter.getEncryptedPassword(password);
+        String encryptedPassword = passwordEncrypter.getEncryptedPassword(password);
 
-            userRepository.insertNewUser(username, encryptedPassword);
-            return true;
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
+        userRepository.insertNewUser(username, encryptedPassword);
+        return true;
     }
 
     public boolean isExists(String username, String password) {
-        Optional<String> encryptedPassword = userRepository.GetUserHashedPassword(username);
-        if (encryptedPassword.isPresent()) {
-            return passwordEncrypter.verifyPassword(password, encryptedPassword.get());
-        }
-        return false;
+        Optional<String> encryptedPassword = userRepository.getUserHashedPassword(username);
+        return encryptedPassword.filter(hash -> passwordEncrypter.verifyPassword(password, hash)).isPresent();
     }
 
     public boolean isExists(String username) {
@@ -63,5 +54,9 @@ public class UserService {
 
     public List<User> getUsersOfAllIncomingRequests(int recipientId) {
         return userRepository.getUsersOfAllIncomingRequests(recipientId);
+    }
+
+    public Optional<User> getUserById(int id) {
+        return userRepository.getUserById(id);
     }
 }

@@ -17,7 +17,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler
     ) throws Exception {
-        if (authorizedUser.getUserId() != null && authorizedUser.getUsername() != null) {
+        if (authorizedUser.getUserId() != null && authorizedUser.getLogin() != null) {
             return true;
         }
         response.sendRedirect("AuthorizationPage");

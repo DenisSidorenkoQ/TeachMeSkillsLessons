@@ -13,6 +13,5 @@ public class UserDto {
     private final String login;
     @NotEmpty(message = "Password should not be empty")
     private final String password;
-    @NotEmpty
     private final String confirmationPassword;
 }

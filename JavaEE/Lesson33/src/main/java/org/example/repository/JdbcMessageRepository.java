@@ -51,7 +51,7 @@ public class JdbcMessageRepository implements MessageRepository {
     }
 
     @Override
-    public void sendMessage(int senderId, int recipientId, String text) {
+    public void saveMessage(int senderId, int recipientId, String text) {
         try (PreparedStatement statement = connection.prepareStatement(SEND_MESSAGE_SQL)) {
             statement.setInt(1, senderId);
             statement.setInt(2, recipientId);

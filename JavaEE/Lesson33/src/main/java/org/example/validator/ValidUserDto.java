@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UserDtoValidator.class)
+@Constraint(validatedBy = UserPasswordValidator.class)
 public @interface ValidUserDto {
     String message () default "Your custom message";
     Class<?>[] groups () default {};

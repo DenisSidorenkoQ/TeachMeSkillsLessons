@@ -13,5 +13,6 @@ public interface UserRepository {
     List<User> getUsersOfAllIncomingRequests(int recipientId);
     List<User> getUsersOfAllOutgoingRequests(int senderId);
     List<User> getAllFriends(int userId);
-    Optional<String> GetUserHashedPassword(String username);
+    Optional<String> getUserHashedPassword(String username);
+    Optional<User> getUserById(int id);
 }

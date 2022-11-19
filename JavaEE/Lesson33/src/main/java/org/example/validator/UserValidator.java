@@ -1,8 +1,10 @@
 package org.example.validator;
 
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+@Component
 public class UserValidator {
 
     public boolean validate(BindingResult bindingResult, Model model) {

@@ -32,12 +32,12 @@ public class AuthorizationController {
             return "/Authorization.jsp";
         }
 
-        int userId = userService.getUserIdByLogin(dto.getLogin());
-
         if (userService.isExists(dto.getLogin(), dto.getPassword())) {
+            int userId = userService.getUserIdByLogin(dto.getLogin());
+
             log.info("User is exists. Login[{}]", dto.getLogin());
             authorizedUser.setUserId(userId);
-            authorizedUser.setUsername(dto.getLogin());
+            authorizedUser.setLogin(dto.getLogin());
             return "redirect:output";
         } else {
             log.warn("User not exists. Login[{}]", dto.getLogin());

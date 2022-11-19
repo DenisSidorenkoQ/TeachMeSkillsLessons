@@ -43,6 +43,7 @@ public class JdbcUserRepository implements UserRepository {
             "on second_user_id = user_id " +
             "where first_user_id=?";
     private static final String GET_USER_HASHED_PASSWORD_SQL = "select password from \"user\" where login = ?";
+    private static final String GET_USER_BY_ID_SQL = "select user_id, login from \"user\" where user_id=?";
 
     @Override
     public boolean isExists(String login) {
@@ -166,7 +167,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<String> GetUserHashedPassword(String username) {
+    public Optional<String> getUserHashedPassword(String username) {
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_HASHED_PASSWORD_SQL)) {
             statement.setString(1, username);
 
@@ -174,6 +175,26 @@ public class JdbcUserRepository implements UserRepository {
             if (rs.next()) {
                 return Optional.of(rs.getString("password"));
             }
+        } catch (SQLException e) {
+            log.error("Error code: " + e.getErrorCode(), e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> getUserById(int id) {
+        try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ID_SQL)) {
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+            User user = null;
+            if (rs.next()) {
+                user = User.builder()
+                        .userId(rs.getInt("user_id"))
+                        .login(rs.getString("login"))
+                        .build();
+            }
+            return Optional.of(user);
         } catch (SQLException e) {
             log.error("Error code: " + e.getErrorCode(), e);
         }

@@ -17,8 +17,8 @@ public class MessageService {
         return messageRepository.getMessages(userId, friendId);
     }
 
-    public void sendMessage(int senderId, int recipientId, String text) {
-        messageRepository.sendMessage(senderId, recipientId, text);
+    public void saveMessage(int senderId, int recipientId, String text) {
+        messageRepository.saveMessage(senderId, recipientId, text);
     }
 
     public void delAllMessages(int senderId, int recipientId) {

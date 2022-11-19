@@ -1,6 +1,6 @@
-package org.example.validator;
+package com.example.lesson.validator;
 
-import org.example.dto.UserDto;
+import com.example.lesson.dto.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
