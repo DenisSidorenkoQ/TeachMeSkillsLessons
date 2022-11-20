@@ -23,7 +23,7 @@ public class SendMessageController {
                             @RequestParam String message,
                             @RequestParam int friendId,
                             @RequestParam String friendName) {
-        messageService.sendMessage(authorizedUser.getUserId(), friendId, message);
+        messageService.saveMessage(authorizedUser.getUserId(), friendId, message);
         model.addAttribute("friendId", friendId);
         model.addAttribute("friendName", friendName);
         return "redirect:chat";
