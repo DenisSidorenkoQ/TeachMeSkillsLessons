@@ -5,7 +5,6 @@ import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.MappedInterceptor;
 
@@ -18,7 +17,10 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MappedInterceptor(new String[]{
-                "/Chat", "/Friends", "/Friends", "/IncomingRequests", "/OutgoingRequests", "/Users", "/Authorization", "/Registration"
+            "/Chat", "/Friends",
+            "/Friends", "/IncomingRequests",
+            "/OutgoingRequests", "/Users",
+            "/Authorization", "/Registration"
         }, new AuthInterceptor(authorizedUser)));
     }
 }
