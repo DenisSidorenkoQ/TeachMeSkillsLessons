@@ -2,19 +2,18 @@ package com.exmaple.springboot.service.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.security.SecureRandom;
 
 @Component
 public class PasswordEncrypter {
-    @Autowired
-    private Environment env;
     private final BCrypt.Hasher hasher;
 
-    public PasswordEncrypter() {
-        String salt = env.getProperty("salt");
+    public PasswordEncrypter(@Value("${salt}") String salt) {
         hasher = BCrypt.with(new SecureRandom(salt.getBytes()));
     }
 
