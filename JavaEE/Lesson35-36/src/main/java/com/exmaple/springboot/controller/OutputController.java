@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,10 +20,19 @@ import java.util.List;
 public class OutputController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int DEFAULT_PAGE_NUMBER = 1;
 
     @GetMapping
-    protected String outputUsers(Model model) {
-        List<User> users = userService.getAllUsers();
+    protected String outputUsers(Model model,
+                                 @RequestParam(required = false) Integer pageSize,
+                                 @RequestParam(required = false) Integer pageNumber) {
+        List<User> users;
+        if (pageSize != null && pageNumber != null) {
+            users = userService.getUserFromPage(pageSize, pageNumber);
+        } else {
+            users = userService.getUserFromPage(DEFAULT_PAGE_SIZE, DEFAULT_PAGE_NUMBER);
+        }
 
         model.addAttribute("login", authorizedUser.getLogin());
         model.addAttribute("users", users);

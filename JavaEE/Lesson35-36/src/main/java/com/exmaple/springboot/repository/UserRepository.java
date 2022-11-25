@@ -16,8 +16,6 @@ public interface UserRepository extends Repository<User, Long> {
     @Query("insert into \"user\" (login, password) values (:login, :password)")
     @Modifying
     boolean insertNewUser(@Param("login") String login, @Param("password") String password);
-    @Query("select * from \"user\"")
-    List<User> getAllUsers();
     @Query("select user_id from \"user\" where login=:login")
     int getUserIdByLogin(@Param("login") String login);
     @Query("select \"user\".user_id, \"user\".login from friend_request " +
@@ -42,4 +40,6 @@ public interface UserRepository extends Repository<User, Long> {
     Optional<String> getUserHashedPassword(@Param("login") String login);
     @Query("select user_id, login from \"user\" where user_id = :userId")
     Optional<User> getUserById(@Param("userId") int userId);
+    @Query("select * from \"user\" order by user_id asc limit :pageSize OFFSET :firstUserNumber")
+    List<User> getUserFromPage(@Param("firstUserNumber") int firstUserNumber, @Param("pageSize") int pageSize);
 }

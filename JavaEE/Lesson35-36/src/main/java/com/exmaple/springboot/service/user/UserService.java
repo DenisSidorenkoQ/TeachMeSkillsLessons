@@ -6,6 +6,7 @@ import com.exmaple.springboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +37,6 @@ public class UserService {
         return userRepository.findUserByLogin(login) != null;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
-    }
-
     public int getUserIdByLogin(String login) {
         return userRepository.getUserIdByLogin(login);
     }
@@ -58,5 +55,9 @@ public class UserService {
 
     public Optional<User> getUserById(int id) {
         return userRepository.getUserById(id);
+    }
+
+    public List<User> getUserFromPage(Integer pageSize, Integer pageNumber) {
+        return userRepository.getUserFromPage((pageNumber - 1) * pageSize, pageSize);
     }
 }
