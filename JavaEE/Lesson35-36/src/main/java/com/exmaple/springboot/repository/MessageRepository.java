@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface MessageRepository extends Repository <Message, Long> {
+public interface MessageRepository extends Repository<Message, Long> {
     @Query("select sender_id, recipient_id, text from message " +
             " where sender_id = :userId and recipient_id = :friendId or sender_id = :friendId and recipient_id = :userId")
     List<Message> getMessages(@Param("userId") int userId, @Param("friendId") int friendId);
