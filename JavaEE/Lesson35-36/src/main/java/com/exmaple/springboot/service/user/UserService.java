@@ -16,6 +16,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncrypter passwordEncrypter;
 
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int DEFAULT_PAGE_NUMBER = 1;
+
     public boolean register(String username, String password) {
 
         if (isExists(username)) {
@@ -56,11 +59,21 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public List<User> getUserFromPage(int pageSize, int pageNumber) {
-        return userRepository.getUserFromPage((pageNumber - 1) * pageSize, pageSize);
+    public List<User> getUserFromPage(Integer pageSize, Integer pageNumber) {
+        if (pageSize != null && pageNumber != null) {
+            return userRepository.getUserFromPage((pageNumber - 1) * pageSize, pageSize);
+        }
+        return userRepository.getUserFromPage(0, DEFAULT_PAGE_SIZE);
     }
 
-    public int getUsersCount() {
+    public int getPageCount(Integer pageSize) {
+        if (pageSize != null) {
+            return Math.round((float) getUsersCount() / pageSize);
+        }
+        return Math.round((float) getUsersCount() / DEFAULT_PAGE_SIZE);
+    }
+
+    private int getUsersCount() {
         return userRepository.getUsersCount();
     }
 }

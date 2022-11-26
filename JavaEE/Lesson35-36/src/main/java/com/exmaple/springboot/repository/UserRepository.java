@@ -13,19 +13,24 @@ import java.util.Optional;
 public interface UserRepository extends Repository<User, Long> {
     @Query("select * from \"user\" where login = :login")
     User findUserByLogin(@Param("login") String login);
+
     @Query("insert into \"user\" (login, password) values (:login, :password)")
     @Modifying
     boolean insertNewUser(@Param("login") String login, @Param("password") String password);
+
     @Query("select user_id from \"user\" where login=:login")
     int getUserIdByLogin(@Param("login") String login);
+
     @Query("select \"user\".user_id, \"user\".login from friend_request " +
             "inner join \"user\" on sender_id = user_id " +
             "where recipient_id = :recipientId")
     List<User> getUsersOfAllIncomingRequests(@Param("recipientId") int recipientId);
+
     @Query("select \"user\".user_id, \"user\".login from friend_request " +
             "inner join \"user\" on recipient_id = user_id " +
             "where sender_id = :senderId")
     List<User> getUsersOfAllOutgoingRequests(@Param("senderId") int senderId);
+
     @Query("select user_id, login from \"user\" " +
             "join friend " +
             "on first_user_id = user_id " +
@@ -36,12 +41,16 @@ public interface UserRepository extends Repository<User, Long> {
             "on second_user_id = user_id " +
             "where first_user_id = :userId")
     List<User> getAllFriends(@Param("userId") int userId);
+
     @Query("select password from \"user\" where login = :login")
     Optional<String> getUserHashedPassword(@Param("login") String login);
+
     @Query("select user_id, login from \"user\" where user_id = :userId")
     Optional<User> getUserById(@Param("userId") int userId);
+
     @Query("select * from \"user\" order by user_id asc limit :pageSize OFFSET :firstUserNumber")
     List<User> getUserFromPage(@Param("firstUserNumber") int firstUserNumber, @Param("pageSize") int pageSize);
+
     @Query("select count(user_id) from \"user\"")
     int getUsersCount();
 }

@@ -20,23 +20,15 @@ import java.util.List;
 public class OutputController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
-    private static final int DEFAULT_PAGE_SIZE = 10;
-    private static final int DEFAULT_PAGE_NUMBER = 1;
 
     @GetMapping
     protected String outputUsers(Model model,
                                  @RequestParam(required = false) Integer pageSize,
                                  @RequestParam(required = false) Integer pageNumber) {
         List<User> users;
-        if (pageSize != null && pageNumber != null) {
-            users = userService.getUserFromPage(pageSize, pageNumber);
-        } else {
-            pageSize = DEFAULT_PAGE_SIZE;
-            pageNumber = DEFAULT_PAGE_NUMBER;
-            users = userService.getUserFromPage(DEFAULT_PAGE_SIZE, DEFAULT_PAGE_NUMBER);
-        }
+        users = userService.getUserFromPage(pageSize, pageNumber);
 
-        int pageCount = Math.round((float) userService.getUsersCount() / pageSize);
+        int pageCount = userService.getPageCount(pageSize);
 
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("pageSize", pageSize);

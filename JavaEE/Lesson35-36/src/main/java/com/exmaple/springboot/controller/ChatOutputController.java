@@ -1,6 +1,6 @@
 package com.exmaple.springboot.controller;
 
-import com.exmaple.springboot.model.Message;
+import com.exmaple.springboot.dto.MessageDto;
 import com.exmaple.springboot.model.User;
 import com.exmaple.springboot.service.MessageService;
 import com.exmaple.springboot.service.user.UserService;
@@ -23,7 +23,7 @@ public class ChatOutputController {
 
     @GetMapping(path = "/chat")
     protected String getMessageList(Model model, @RequestParam int friendId) {
-        List<Message> messageList = messageService.getMessages(authorizedUser.getUserId(), friendId);
+        List<MessageDto> messageList = messageService.getMessages(authorizedUser.getUserId(), friendId);
 
         Optional<User> friend = userService.getUserById(friendId);
         if (friend.isPresent()) {

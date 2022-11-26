@@ -1,11 +1,11 @@
-package com.exmaple.springboot.model;
+package com.exmaple.springboot.dto;
 
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-public class Message {
+public class MessageDto {
     int senderId;
     int recipientId;
     String text;

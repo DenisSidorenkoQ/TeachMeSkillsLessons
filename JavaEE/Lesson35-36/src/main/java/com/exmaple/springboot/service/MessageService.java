@@ -1,7 +1,7 @@
 package com.exmaple.springboot.service;
 
 
-import com.exmaple.springboot.model.Message;
+import com.exmaple.springboot.dto.MessageDto;
 import com.exmaple.springboot.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 public class MessageService {
     private final MessageRepository messageRepository;
 
-    public List<Message> getMessages(int userId, int friendId) {
+    public List<MessageDto> getMessages(int userId, int friendId) {
         return messageRepository.getMessages(userId, friendId);
     }
 
