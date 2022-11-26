@@ -31,9 +31,16 @@ public class OutputController {
         if (pageSize != null && pageNumber != null) {
             users = userService.getUserFromPage(pageSize, pageNumber);
         } else {
+            pageSize = DEFAULT_PAGE_SIZE;
+            pageNumber = DEFAULT_PAGE_NUMBER;
             users = userService.getUserFromPage(DEFAULT_PAGE_SIZE, DEFAULT_PAGE_NUMBER);
         }
 
+        int pageCount = Math.round((float) userService.getUsersCount() / pageSize);
+
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("login", authorizedUser.getLogin());
         model.addAttribute("users", users);
         return "/Users";

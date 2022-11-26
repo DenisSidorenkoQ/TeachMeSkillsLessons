@@ -42,4 +42,6 @@ public interface UserRepository extends Repository<User, Long> {
     Optional<User> getUserById(@Param("userId") int userId);
     @Query("select * from \"user\" order by user_id asc limit :pageSize OFFSET :firstUserNumber")
     List<User> getUserFromPage(@Param("firstUserNumber") int firstUserNumber, @Param("pageSize") int pageSize);
+    @Query("select count(user_id) from \"user\"")
+    int getUsersCount();
 }

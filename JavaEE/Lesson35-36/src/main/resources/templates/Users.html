@@ -29,6 +29,15 @@
             </div>
         </tr>
     </ul>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <tr th:each="index:${#numbers.sequence(0, pageCount - 1, 1)}">
+                <li class="page-item"><a class="page-link" th:href="@{'/output?pageNumber=' + ${index + 1} +
+                        '&pageSize=' + ${pageSize}} " th:text="${index + 1}"></a>
+                </li>
+            </tr>
+        </ul>
+    </nav>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

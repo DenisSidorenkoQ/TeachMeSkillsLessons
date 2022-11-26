@@ -57,7 +57,11 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public List<User> getUserFromPage(Integer pageSize, Integer pageNumber) {
+    public List<User> getUserFromPage(int pageSize, int pageNumber) {
         return userRepository.getUserFromPage((pageNumber - 1) * pageSize, pageSize);
+    }
+
+    public int getUsersCount() {
+        return userRepository.getUsersCount();
     }
 }
