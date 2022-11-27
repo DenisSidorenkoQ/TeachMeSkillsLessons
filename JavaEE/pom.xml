@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Lesson35-36</module>
+        <module>SocialNetwork</module>
         <module>Lesson33</module>
     </modules>
 
