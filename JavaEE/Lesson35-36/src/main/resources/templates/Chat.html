@@ -33,7 +33,7 @@
         </div>
     </div>
 </tr>
-<form action="#" th:action="@{/messages(friendId=${friendId})}" method="post">
+<form action="#" th:action="@{/send-message(friendId=${friendId})}" method="post">
     <div class="p-4">
         <label for="message" class="form-label">Text</label>
         <textarea class="form-control" id="message" name="message" rows="3"></textarea>

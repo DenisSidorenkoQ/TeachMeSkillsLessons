@@ -30,6 +30,6 @@ public class FriendRequestController {
                     recipientId
             );
         }
-        return "redirect:output";
+        return "redirect:users";
     }
 }

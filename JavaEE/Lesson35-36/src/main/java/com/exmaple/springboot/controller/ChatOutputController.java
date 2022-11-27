@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -32,9 +34,17 @@ public class ChatOutputController {
             model.addAttribute("username", authorizedUser.getLogin());
             model.addAttribute("userId", authorizedUser.getUserId());
             model.addAttribute("messageList", messageList);
+            return "/Chat";
         }
+        return "redirect:/friendList";
 
-        return "/Chat";
+    }
+
+    @PostMapping(path = "/send-message")
+    protected String sendMessage(@RequestParam String message,
+                                 @RequestParam int friendId) {
+        messageService.saveMessage(authorizedUser.getUserId(), friendId, message);
+        return "redirect:chat?friendId=" + friendId;
     }
 
 }

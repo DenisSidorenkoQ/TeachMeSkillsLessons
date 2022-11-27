@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/output")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class OutputController {
     private final UserService userService;

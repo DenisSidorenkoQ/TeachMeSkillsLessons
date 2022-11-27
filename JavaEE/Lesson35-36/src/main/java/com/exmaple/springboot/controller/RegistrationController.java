@@ -31,6 +31,7 @@ public class RegistrationController {
 
     @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String registerNewUser(
+            Model model,
             @Valid @ModelAttribute("dto") UserDto dto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -44,9 +45,11 @@ public class RegistrationController {
             log.info("User does not exist, registering a new user. Login[{}]", username);
             authorizedUser.setUserId(userService.getUserIdByLogin(dto.getLogin()));
             authorizedUser.setLogin(username);
-            return "redirect:output";
+            return "redirect:users";
         } else {
             log.info("User is already to exist. Login[{}]", username);
+            String error = "User is already to exist";
+            model.addAttribute("error", error);
             return "Authorization";
         }
     }

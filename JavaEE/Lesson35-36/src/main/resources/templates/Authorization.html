@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/authorization}" th:object="${dto}" method="get">
+<form action="#" th:action="@{/authorization}" th:object="${dto}" method="post">
     <div class="position-relative">
         <div class="position-absolute bottom-50 end-50">
             <div class="card" style="width:27rem;">
@@ -20,6 +20,9 @@
                         <div>
                             <input class="col-form-label form-control" th:filed="*{password}" name="password" placeholder="Enter password">
                             <p th:if="${#fields.hasErrors('password')}">Invalid Password</p>
+                        </div>
+                        <div th:if="${error != null && !error.isEmpty()}">
+                            <p class="text-danger"><span th:text="${error}"/></p>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-success">Authorization</button>
