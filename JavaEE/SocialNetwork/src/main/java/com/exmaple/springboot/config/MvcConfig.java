@@ -16,8 +16,10 @@ public class MvcConfig implements WebMvcConfigurer {
 
     private final AuthorizedUser authorizedUser;
 
-    private static final List<String> ALLOWED_PATHS = List.of("/authorizationPage", "/authorization", "/registrationPage", "/users",
-            "/Error");
+    private static final List<String> ALLOWED_PATHS = List.of(
+            "/authorizationPage", "/authorization",
+            "/registrationPage", "/users",
+            "/Error", "/api/v1/users");
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

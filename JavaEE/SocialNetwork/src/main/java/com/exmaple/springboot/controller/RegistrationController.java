@@ -1,6 +1,6 @@
 package com.exmaple.springboot.controller;
 
-import com.exmaple.springboot.dto.UserDto;
+import com.exmaple.springboot.dto.AuthorizationUserDto;
 import com.exmaple.springboot.service.user.UserService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +25,14 @@ public class RegistrationController {
     @GetMapping(path = "/registrationPage")
     protected String userRegistration(Model model) {
 
-        model.addAttribute("dto", new UserDto());
+        model.addAttribute("dto", new AuthorizationUserDto());
         return "Registration";
     }
 
     @PostMapping(path = "/registration", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String registerNewUser(
             Model model,
-            @Valid @ModelAttribute("dto") UserDto dto,
+            @Valid @ModelAttribute("dto") AuthorizationUserDto dto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "Registration";
