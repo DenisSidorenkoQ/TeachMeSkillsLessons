@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class OutputController {
+public class OutputUsersController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
 

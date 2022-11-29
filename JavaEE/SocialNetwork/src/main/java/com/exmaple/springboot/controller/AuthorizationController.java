@@ -1,6 +1,6 @@
 package com.exmaple.springboot.controller;
 
-import com.exmaple.springboot.dto.UserDto;
+import com.exmaple.springboot.dto.AuthorizationUserDto;
 import com.exmaple.springboot.service.user.UserService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,13 @@ public class AuthorizationController {
     @GetMapping(path = "/authorizationPage")
     protected String userAuthorization(Model model) {
 
-        model.addAttribute("dto", new UserDto());
+        model.addAttribute("dto", new AuthorizationUserDto());
         return "Authorization";
     }
 
     @PostMapping(path = "/authorization")
     protected String userAuthorization(
-            @Valid @ModelAttribute("dto") UserDto dto,
+            @Valid @ModelAttribute("dto") AuthorizationUserDto dto,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/Authorization";

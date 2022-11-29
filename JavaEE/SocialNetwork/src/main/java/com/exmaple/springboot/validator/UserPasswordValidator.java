@@ -1,14 +1,14 @@
 package com.exmaple.springboot.validator;
 
-import com.exmaple.springboot.dto.UserDto;
+import com.exmaple.springboot.dto.AuthorizationUserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class UserPasswordValidator implements ConstraintValidator<ValidUserDto, UserDto> {
+public class UserPasswordValidator implements ConstraintValidator<ValidUserDto, AuthorizationUserDto> {
     @Override
     @SuppressWarnings("PMD")
-    public boolean isValid(UserDto dto, ConstraintValidatorContext context) {
+    public boolean isValid(AuthorizationUserDto dto, ConstraintValidatorContext context) {
         if (dto.getConfirmationPassword() == null) {
             return true;
         }
