@@ -1,7 +1,7 @@
 package com.exmaple.springboot.controller;
 
 import com.exmaple.springboot.dto.AuthorizationUserDto;
-import com.exmaple.springboot.service.user.UserService;
+import com.exmaple.springboot.service.UserService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
