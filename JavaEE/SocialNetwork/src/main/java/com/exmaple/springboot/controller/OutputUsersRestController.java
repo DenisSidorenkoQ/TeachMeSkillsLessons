@@ -3,7 +3,7 @@ package com.exmaple.springboot.controller;
 import com.exmaple.springboot.converter.UserConverter;
 import com.exmaple.springboot.dto.UserDto;
 import com.exmaple.springboot.model.User;
-import com.exmaple.springboot.service.user.UserService;
+import com.exmaple.springboot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,6 @@ public class OutputUsersRestController {
                                         @RequestParam(required = false) Integer pageNumber) {
         List<User> users;
         users = userService.getUserFromPage(pageSize, pageNumber);
-        userConverter.toDto(users);
         return userConverter.toDto(users);
     }
 }

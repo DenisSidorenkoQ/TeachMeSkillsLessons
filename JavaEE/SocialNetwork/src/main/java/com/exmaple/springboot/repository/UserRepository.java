@@ -53,4 +53,7 @@ public interface UserRepository extends Repository<User, Long> {
 
     @Query("select count(user_id) from \"user\"")
     int getUsersCount();
+
+    @Query("select * from \"user\" where login=:login")
+    User getUserByLogin(@Param("login") String login);
 }

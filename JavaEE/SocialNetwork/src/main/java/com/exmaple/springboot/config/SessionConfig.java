@@ -1,16 +1,18 @@
 package com.exmaple.springboot.config;
 
-import com.exmaple.springboot.session.AuthorizedUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.WebApplicationContext;
+import com.exmaple.springboot.session.AuthorizedUser;
 
 @Configuration
 public class SessionConfig {
     @Bean
-    @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Scope(
+            value = WebApplicationContext.SCOPE_SESSION,
+            proxyMode = ScopedProxyMode.TARGET_CLASS)
     public AuthorizedUser authorizedUser() {
         return new AuthorizedUser();
     }

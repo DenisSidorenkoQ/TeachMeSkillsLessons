@@ -1,9 +1,10 @@
-package com.exmaple.springboot.service.user;
+package com.exmaple.springboot.service;
 
 
 import com.exmaple.springboot.model.User;
 import com.exmaple.springboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncrypter passwordEncrypter;
+    private final PasswordEncoder passwordEncoder;
 
     private static final int DEFAULT_PAGE_SIZE = 10;
     private static final int DEFAULT_PAGE_NUMBER = 1;
@@ -24,7 +25,7 @@ public class UserService {
         if (isExists(username)) {
             return false;
         }
-        String encryptedPassword = passwordEncrypter.getEncryptedPassword(password);
+        String encryptedPassword = passwordEncoder.encode(password);
 
         userRepository.insertNewUser(username, encryptedPassword);
         return true;
@@ -32,7 +33,7 @@ public class UserService {
 
     public boolean isExists(String username, String password) {
         Optional<String> encryptedPassword = userRepository.getUserHashedPassword(username);
-        return encryptedPassword.filter(hash -> passwordEncrypter.verifyPassword(password, hash)).isPresent();
+        return encryptedPassword.filter(hash ->  passwordEncoder.matches(password, hash)).isPresent();
     }
 
     public boolean isExists(String login) {
@@ -75,5 +76,9 @@ public class UserService {
 
     private int getUsersCount() {
         return userRepository.getUsersCount();
+    }
+
+    public User getUserByLogin(String login) {
+        return userRepository.getUserByLogin(login);
     }
 }

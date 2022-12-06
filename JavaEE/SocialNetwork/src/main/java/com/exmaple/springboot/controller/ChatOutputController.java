@@ -3,7 +3,7 @@ package com.exmaple.springboot.controller;
 import com.exmaple.springboot.dto.MessageDto;
 import com.exmaple.springboot.model.User;
 import com.exmaple.springboot.service.MessageService;
-import com.exmaple.springboot.service.user.UserService;
+import com.exmaple.springboot.service.UserService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

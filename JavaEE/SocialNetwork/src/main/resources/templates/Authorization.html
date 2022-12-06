@@ -6,26 +6,17 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/authorization}" th:object="${dto}" method="post">
+<form action="#" th:action="@{/addiems}" method="post">
     <div class="position-relative">
         <div class="position-absolute bottom-50 end-50">
             <div class="card" style="width:27rem;">
                 <div class="card-body">
                     <div class="form-group">
                         <div>
-                            <input class="col-form-label form-control" th:filed="*{login}" name="login" placeholder="Enter login"/>
-                            <p th:if="${#fields.hasErrors('login')}">Invalid login</p>
-                        </div>
-
-                        <div>
-                            <input class="col-form-label form-control" th:filed="*{password}" name="password" placeholder="Enter password">
-                            <p th:if="${#fields.hasErrors('password')}">Invalid Password</p>
-                        </div>
-                        <div th:if="${error != null && !error.isEmpty()}">
-                            <p class="text-danger"><span th:text="${error}"/></p>
+                            <input path="partName" type="text" name="partName" id="partName" placeholder="Enter part name"/>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-success">Authorization</button>
+                    <button type="submit" class="btn btn-outline-success">Submit</button>
                 </div>
             </div>
         </div>
