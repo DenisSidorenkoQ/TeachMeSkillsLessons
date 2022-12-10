@@ -1,0 +1,41 @@
+package com.exmaple.springboot.controller;
+
+import com.exmaple.springboot.model.Profile;
+import com.exmaple.springboot.service.ProfileService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.net.URI;
+
+@Controller
+@RequiredArgsConstructor
+public class ProfileController {
+    private final ProfileService profileService;
+
+    @GetMapping("/profile/{userId}")
+    protected String outputUserProfile(@PathVariable int userId, Model model) {
+        Profile profile = profileService.getProfile(userId);
+        URI imageUrl = profileService.getImagePath(profile.getImageName());
+        model.addAttribute("imageUrl", imageUrl);
+        model.addAttribute("profile", profile);
+        return "Profile";
+    }
+
+    @GetMapping("/profile/edit/{userId}")
+    protected String profileEditPage(Model model, @PathVariable String userId) {
+        //////////////////////////////////////////////////////////////////ТУТ
+        return "";
+    }
+
+    @PostMapping("/profile/edit/img/{userId}")
+    protected String editImg(@PathVariable int userId, Model model) {
+        Profile profile = profileService.getProfile(userId);
+        model.addAttribute("profile", profile);
+        return "EditProfile";
+    }
+}

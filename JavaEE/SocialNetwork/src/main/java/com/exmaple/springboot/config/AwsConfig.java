@@ -39,9 +39,6 @@ public class AwsConfig {
     @Bean
     Bucket imageBucket() {
         Bucket imgBucket = client.createBucket("imgbucket");
-//        System.out.println(imgBucket);
-//        GetObjectRequest request = new GetObjectRequest("imgbucket", fileName);
-//        InputStream objectData = client.getObject(request).getObjectContent();
         return imgBucket;
     }
 
