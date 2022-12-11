@@ -38,10 +38,10 @@ public class ProfileService {
             imageService.upload(file.getInputStream(), file.getOriginalFilename());
             setNewProfileImage(userId, file.getOriginalFilename());
         }
-        if (login != null) {
+        if (!login.isBlank()) {
             userService.changeUserLogin(userId, login);
         }
-        if (password != null) {
+        if (!password.isBlank()) {
             userService.changeUserPassword(userId, password);
         }
     }

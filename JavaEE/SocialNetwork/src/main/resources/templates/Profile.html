@@ -17,9 +17,9 @@
             <div class="card-body">
                 <p class="card-text">User ID: <span th:text="${profile.getUserId()}"></span></p>
                 <p class="card-text">Username: <span th:text="${profile.getLogin()}"></span></p>
-            </div>
-            <div th:if="${rightsToChange == true}">
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <div th:if="${rightsToChange == true}">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
             </div>
         </form>
     </div>
