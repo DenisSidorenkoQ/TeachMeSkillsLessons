@@ -32,7 +32,6 @@ public class ProfileService {
         profileRepository.changeImage(userId, imageId);
     }
 
-
     public void editProfile(int userId, String login, String password, MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             imageService.upload(file.getInputStream(), file.getOriginalFilename());

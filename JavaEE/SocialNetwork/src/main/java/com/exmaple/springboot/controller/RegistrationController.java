@@ -44,12 +44,12 @@ public class RegistrationController {
         String username = dto.getLogin();
         String password = dto.getPassword();
 
-
         if (userService.register(username, password)) {
             log.info("User does not exist, registering a new user. Login[{}]", username);
 
             authorizedUser.setUserId(userService.getUserIdByLogin(dto.getLogin()));
             authorizedUser.setLogin(username);
+
             imageService.setPlaceholder(authorizedUser.getUserId());
             return "redirect:users";
         } else {

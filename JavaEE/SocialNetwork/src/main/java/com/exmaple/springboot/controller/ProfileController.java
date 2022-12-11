@@ -27,11 +27,13 @@ public class ProfileController {
     protected String outputUserProfile(@PathVariable int userId, Model model) throws IOException {
         Profile profile = profileService.getProfile(userId);
         URI imageUrl = imageService.getImagePath(profile.getImageName());
+
         if (authorizedUser.getUserId() == userId) {
             model.addAttribute("rightsToChange", true);
         } else {
             model.addAttribute("rightsToChange", false);
         }
+
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("profile", profile);
         return "Profile";

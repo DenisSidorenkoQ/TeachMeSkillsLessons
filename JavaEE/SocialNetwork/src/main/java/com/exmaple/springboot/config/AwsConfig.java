@@ -21,7 +21,6 @@ public class AwsConfig {
     private String endpointUrl;
     @Value("${aws.region}")
     private String region;
-
     private AmazonS3 client;
     @Value("${aws.image-placeholder-path}")
     private String placeholderPath;
@@ -37,6 +36,7 @@ public class AwsConfig {
         builder.withEndpointConfiguration(config);
         builder.withPathStyleAccessEnabled(true);
         builder.withCredentials(new AWSStaticCredentialsProvider(credentials));
+
         client = builder.build();
         return client;
     }
@@ -50,6 +50,7 @@ public class AwsConfig {
     @Bean
     void uploadPlaceholder() throws URISyntaxException {
         File file = new File(placeholderPath);
+
         if (!client.doesObjectExist("imgbucket", "Placeholder.png")) {
             PutObjectRequest request = new PutObjectRequest("imgbucket", "Placeholder.png", file);
             client.putObject(request);

@@ -22,7 +22,6 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private static final String PLACEHOLDER_NAME = "Placeholder.png";
 
-
     public void upload(InputStream stream, String fileName) {
         PutObjectRequest request = new PutObjectRequest("imgbucket", fileName, stream, new ObjectMetadata());
         client.putObject(request);
