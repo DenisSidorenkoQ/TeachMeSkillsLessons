@@ -18,7 +18,11 @@ public interface MessageRepository extends Repository<MessageDto, Long> {
     @Modifying
     void saveMessage(@Param("senderId") int senderId, @Param("recipientId") int recipientId, @Param("text") String text);
 
-    @Query("delete from message where sender_id = :senderId and recipient_id = :recipientId or sender_id = :recipientId and recipient_id = :senderId")
+    @Query("delete from message " +
+            "where sender_id = :senderId " +
+            "and recipient_id = :recipientId " +
+            "or sender_id = :recipientId " +
+            "and recipient_id = :senderId")
     @Modifying
     void delAllMessages(@Param("senderId") int senderId, @Param("recipientId") int recipientId);
 }

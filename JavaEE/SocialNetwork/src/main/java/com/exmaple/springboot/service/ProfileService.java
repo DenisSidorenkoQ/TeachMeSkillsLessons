@@ -1,13 +1,10 @@
 package com.exmaple.springboot.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.exmaple.springboot.model.Profile;
-import com.exmaple.springboot.repository.ImageRepository;
 import com.exmaple.springboot.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.control.MappingControl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Paths;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,8 +45,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/edit/{userId}")
-    protected String editProfile(Model model,
-                                 @PathVariable int userId,
+    protected String editProfile(@PathVariable int userId,
                                  @RequestParam(required = false) String login,
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false, name = "file") MultipartFile file

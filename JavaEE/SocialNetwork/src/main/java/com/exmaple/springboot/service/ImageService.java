@@ -1,46 +1,40 @@
 package com.exmaple.springboot.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
-import com.exmaple.springboot.model.Image;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.exmaple.springboot.repository.ImageRepository;
 import com.exmaple.springboot.repository.ProfileRepository;
-import com.exmaple.springboot.session.AuthorizedUser;
-import lombok.RequiredArgsConstructor;
-import org.apache.http.entity.ContentType;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor
 public class ImageService {
     private final AmazonS3 client;
-    private final Bucket imgBucket;
     private final ProfileRepository profileRepository;
     private final ImageRepository imageRepository;
-    private static final String PLACEHOLDER_NAME="Placeholder.png";
+    private static final String PLACEHOLDER_NAME = "Placeholder.png";
 
 
     public void upload(InputStream stream, String fileName) {
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        PutObjectRequest request = new PutObjectRequest("imgbucket", fileName, stream, objectMetadata);
+        PutObjectRequest request = new PutObjectRequest("imgbucket", fileName, stream, new ObjectMetadata());
         client.putObject(request);
     }
 
-    public void setPlaceholder(int UserId) {
+    public void setPlaceholder(int userId) {
         int imageId = imageRepository.createNewImage(PLACEHOLDER_NAME);
-        profileRepository.setNewImage(UserId, imageId);
+        profileRepository.setNewImage(userId, imageId);
     }
 
     public URI getImagePath(String imageName) throws IOException {
         GetObjectRequest request = new GetObjectRequest("imgbucket", imageName);
-        S3Object object = client.getObject(request);
         return client.getObject(request).getObjectContent().getHttpRequest().getURI();
     }
 
