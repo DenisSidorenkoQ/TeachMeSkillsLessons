@@ -56,4 +56,15 @@ public interface UserRepository extends Repository<User, Long> {
 
     @Query("select * from \"user\" where login=:login")
     User getUserByLogin(@Param("login") String login);
+    @Modifying
+    @Query("update \"user\" " +
+            "set password=:password " +
+            "where user_id=:userId")
+    void changeUserPassword(@Param("userId") int userId, @Param("password") String password);
+
+    @Modifying
+    @Query("update \"user\" " +
+            "set login=:login " +
+            "where user_id=:userId")
+    void changeUserLogin(@Param("userId") int userId, @Param("login") String login);
 }

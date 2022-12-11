@@ -15,11 +15,22 @@
     <ul class="list-group list-group-flush">
         <tr th:each="user: ${users}">
             <div th:if="${user.getLogin() == login}">
-                <li class="list-group-item"><span th:text="${user.getLogin()}"/></li>
+                <form action="#" th:action="@{/profile/{userId} (userId=${user.getUserId()})}" method="get">
+                    <li class="list-group-item"><span th:text="${user.getLogin()}"/>
+                        <button type="submit" class="btn btn-outline-primary btn-sm pull-right">
+                            Open profile
+                        </button>
+                    </li>
+                </form>
             </div>
             <div th:if="${user.getLogin() != login}">
                 <li class="list-group-item">
                     <span th:text="${user.getLogin()}"/>
+                    <form action="#" th:action="@{/profile/{userId} (userId=${user.getUserId()})}" method="get">
+                        <button type="submit" class="btn btn-outline-primary btn-sm pull-right">
+                            Open profile
+                        </button>
+                    </form>
                     <form action="#" th:action="@{/friendRequest(recipientId=${user.getUserId()})}" method="post">
                         <button type="submit" class="mx-auto btn btn-outline-success btn-sm">
                             Add to friends
