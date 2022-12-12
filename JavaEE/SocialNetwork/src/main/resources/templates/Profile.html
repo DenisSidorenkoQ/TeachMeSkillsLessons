@@ -13,7 +13,7 @@
             Profile
         </div>
         <img class="card-img-top" th:src="${imageUrl}" alt="Card image cap">
-        <form action="#" th:action="@{/profile/edit/{userId} (userId=${profile.getUserId()})}" method="get">
+        <form action="#" th:action="@{/profile/{userId}/edit (userId=${profile.getUserId()})}" method="get">
             <div class="card-body">
                 <p class="card-text">User ID: <span th:text="${profile.getUserId()}"></span></p>
                 <p class="card-text">Username: <span th:text="${profile.getLogin()}"></span></p>

@@ -12,7 +12,7 @@ services:
       - DATA_DIR=/tmp/localstack/data
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - ./localstack:/docker-entrypoint-initaws.d
+      - ./scripts/localstack:/docker-entrypoint-initaws.d
 
   postgres:
     image: "postgres:13.4-alpine"

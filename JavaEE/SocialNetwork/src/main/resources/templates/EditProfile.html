@@ -11,7 +11,7 @@
             <div class="card" style="width:30rem;">
                 <div class="card-body">
                     <div class="form-group">
-                        <form action="#" th:action="@{/profile/edit/{userId} (userId=${userId})}" enctype="multipart/form-data" method="post">
+                        <form action="#" th:action="@{/profile/{userId}/edit (userId=${userId})}" enctype="multipart/form-data" method="post">
                             <div class="file-upload-wrapper">
                                 <input id="file" name="file" type="file" accept=".gif,.jpg,.jpeg,.png">
                             </div>

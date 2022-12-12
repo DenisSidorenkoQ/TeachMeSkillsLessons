@@ -39,14 +39,14 @@ public class ProfileController {
         return "Profile";
     }
 
-    @GetMapping("/profile/edit/{userId}")
+    @GetMapping("/profile/{userId}/edit")
     protected String profileEditPage(Model model,
                                      @PathVariable int userId) {
         model.addAttribute("userId", userId);
         return "EditProfile";
     }
 
-    @PostMapping("/profile/edit/{userId}")
+    @PostMapping("/profile/{userId}/edit")
     protected String editProfile(@PathVariable int userId,
                                  @RequestParam(required = false) String login,
                                  @RequestParam(required = false) String password,
@@ -54,12 +54,5 @@ public class ProfileController {
                                  ) throws IOException {
         profileService.editProfile(userId, login, password, file);
         return "redirect:/profile/" + userId;
-    }
-
-    @PostMapping("/profile/edit/img/{userId}")
-    protected String editImg(@PathVariable int userId, Model model) {
-        Profile profile = profileService.getProfile(userId);
-        model.addAttribute("profile", profile);
-        return "EditProfile";
     }
 }

@@ -5,7 +5,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 @Configuration
 public class AwsConfig {
@@ -42,13 +40,7 @@ public class AwsConfig {
     }
 
     @Bean
-    Bucket imageBucket() {
-        Bucket imgBucket = client.createBucket("imgbucket");
-        return imgBucket;
-    }
-
-    @Bean
-    void uploadPlaceholder() throws URISyntaxException {
+    void uploadPlaceholder() {
         File file = new File(placeholderPath);
 
         if (!client.doesObjectExist("imgbucket", "Placeholder.png")) {
