@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class ImageService {
         profileRepository.setNewImage(userId, imageId);
     }
 
-    public URI getImagePath(String imageName) {
+    public URI getImagePath(String imageName) throws URISyntaxException {
         return storageService.getImagePath(imageName);
     }
 

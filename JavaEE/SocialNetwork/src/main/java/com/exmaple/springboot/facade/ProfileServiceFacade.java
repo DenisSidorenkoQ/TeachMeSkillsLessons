@@ -4,7 +4,6 @@ import com.exmaple.springboot.model.Profile;
 import com.exmaple.springboot.repository.ProfileRepository;
 import com.exmaple.springboot.service.ImageService;
 import com.exmaple.springboot.service.UserService;
-import com.exmaple.springboot.service.storage.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,12 +16,11 @@ public class ProfileServiceFacade {
     private final ImageService imageService;
     private final UserService userService;
     private final ProfileRepository profileRepository;
-    private final StorageService storageService;
     public Profile getProfile(int userId) {
         return profileRepository.getProfile(userId);
     }
 
-    public void setNewProfileImage(int userId, String imageName) {
+    public void setNewProfileImage(int userId, String imageName) throws IOException {
         String oldImage = imageService.getImageByUserId(userId);
         if (!oldImage.equals("Placeholder.png")) {
             imageService.deleteImage(oldImage);

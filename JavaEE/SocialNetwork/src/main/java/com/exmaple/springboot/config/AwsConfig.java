@@ -5,13 +5,10 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
-import java.io.IOException;
 
 @Configuration
 public class AwsConfig {
@@ -19,12 +16,9 @@ public class AwsConfig {
     private String endpointUrl;
     @Value("${aws.region}")
     private String region;
-    private AmazonS3 client;
-    @Value("${aws.image-placeholder-path}")
-    private String placeholderPath;
 
     @Bean
-    AmazonS3 amazonS3() throws IOException {
+    AmazonS3 amazonS3() {
         BasicAWSCredentials credentials = new BasicAWSCredentials("foo", "bar");
 
         AwsClientBuilder.EndpointConfiguration config =
@@ -34,19 +28,7 @@ public class AwsConfig {
         builder.withEndpointConfiguration(config);
         builder.withPathStyleAccessEnabled(true);
         builder.withCredentials(new AWSStaticCredentialsProvider(credentials));
-
-        client = builder.build();
-        return client;
-    }
-
-    @Bean
-    void uploadPlaceholder() {
-        File file = new File(placeholderPath);
-
-        if (!client.doesObjectExist("imgbucket", "Placeholder.png")) {
-            PutObjectRequest request = new PutObjectRequest("imgbucket", "Placeholder.png", file);
-            client.putObject(request);
-        }
+        return builder.build();
     }
 
 }

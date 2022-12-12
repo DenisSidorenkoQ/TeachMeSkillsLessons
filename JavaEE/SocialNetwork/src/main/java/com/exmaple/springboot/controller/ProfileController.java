@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class ProfileController {
     private final AuthorizedUser authorizedUser;
 
     @GetMapping("/profile/{userId}")
-    protected String outputUserProfile(@PathVariable int userId, Model model) throws IOException {
+    protected String outputUserProfile(@PathVariable int userId, Model model) throws URISyntaxException {
         Profile profile = profileService.getProfile(userId);
         URI imageUrl = imageService.getImagePath(profile.getImageName());
 

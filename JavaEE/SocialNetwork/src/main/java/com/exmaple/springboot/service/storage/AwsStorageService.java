@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +23,12 @@ public class AwsStorageService implements StorageService {
     }
 
     @Override
-    public URI getImagePath(String imageName) {
-        GetObjectRequest request = new GetObjectRequest("imgbucket", imageName);
-        return client.getObject(request).getObjectContent().getHttpRequest().getURI();
+    public URI getImagePath(String imageName) throws URISyntaxException {
+        if (client.doesObjectExist("imgbucket", imageName)) {
+            GetObjectRequest request = new GetObjectRequest("imgbucket", imageName);
+            return client.getObject(request).getObjectContent().getHttpRequest().getURI();
+        }
+        return new URI("/static/images/Placeholder.png");
     }
 
     @Override
