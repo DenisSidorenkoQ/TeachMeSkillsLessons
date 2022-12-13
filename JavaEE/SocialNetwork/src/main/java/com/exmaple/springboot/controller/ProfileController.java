@@ -1,8 +1,8 @@
 package com.exmaple.springboot.controller;
 
+import com.exmaple.springboot.facade.ProfileServiceFacade;
 import com.exmaple.springboot.model.Profile;
 import com.exmaple.springboot.service.ImageService;
-import com.exmaple.springboot.service.ProfileService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,13 @@ import java.net.URISyntaxException;
 @Controller
 @RequiredArgsConstructor
 public class ProfileController {
-    private final ProfileService profileService;
     private final ImageService imageService;
     private final AuthorizedUser authorizedUser;
+    private final ProfileServiceFacade profileServiceFacade;
 
     @GetMapping("/profile/{userId}")
     protected String outputUserProfile(@PathVariable int userId, Model model) throws URISyntaxException {
-        Profile profile = profileService.getProfile(userId);
+        Profile profile = profileServiceFacade.getProfile(userId);
         URI imageUrl = imageService.getImagePath(profile.getImageName());
 
         if (authorizedUser.getUserId() == userId) {
@@ -53,7 +53,7 @@ public class ProfileController {
                                  @RequestParam(required = false) String password,
                                  @RequestParam(required = false, name = "file") MultipartFile file
                                  ) throws IOException {
-        profileService.editProfile(userId, login, password, file);
+        profileServiceFacade.editProfile(userId, login, password, file);
         return "redirect:/profile/" + userId;
     }
 }

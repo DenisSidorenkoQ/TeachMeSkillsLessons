@@ -3,6 +3,7 @@ package com.exmaple.springboot.facade;
 import com.exmaple.springboot.model.Profile;
 import com.exmaple.springboot.repository.ProfileRepository;
 import com.exmaple.springboot.service.ImageService;
+import com.exmaple.springboot.service.ProfileService;
 import com.exmaple.springboot.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,18 +16,19 @@ import java.io.IOException;
 public class ProfileServiceFacade {
     private final ImageService imageService;
     private final UserService userService;
-    private final ProfileRepository profileRepository;
+    private final ProfileService profileService;
+
     public Profile getProfile(int userId) {
-        return profileRepository.getProfile(userId);
+        return profileService.getProfile(userId);
     }
 
-    public void setNewProfileImage(int userId, String imageName) throws IOException {
+    public void setNewProfileImage(int userId, String imageName) {
         String oldImage = imageService.getImageByUserId(userId);
         if (!oldImage.equals("Placeholder.png")) {
             imageService.deleteImage(oldImage);
         }
         int imageId = imageService.createNewImage(imageName);
-        profileRepository.changeImage(userId, imageId);
+        profileService.changeImage(userId, imageId);
     }
 
     public void editProfile(int userId, String login, String password, MultipartFile file) throws IOException {

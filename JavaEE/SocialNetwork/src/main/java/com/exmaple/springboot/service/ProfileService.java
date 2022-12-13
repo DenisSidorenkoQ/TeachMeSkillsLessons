@@ -1,23 +1,20 @@
 package com.exmaple.springboot.service;
 
-import com.exmaple.springboot.facade.ProfileServiceFacade;
 import com.exmaple.springboot.model.Profile;
+import com.exmaple.springboot.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
-    private final ProfileServiceFacade profileServiceFacade;
+    private final ProfileRepository profileRepository;
 
     public Profile getProfile(int userId) {
-        return profileServiceFacade.getProfile(userId);
+        return profileRepository.getProfile(userId);
     }
 
-    public void editProfile(int userId, String login, String password, MultipartFile file) throws IOException {
-        profileServiceFacade.editProfile(userId, login, password, file);
+    public void changeImage(int userId, int imageId) {
+        profileRepository.changeImage(userId, imageId);
     }
 }
