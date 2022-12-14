@@ -1,7 +1,6 @@
 package com.exmaple.springboot.facade;
 
 import com.exmaple.springboot.model.Profile;
-import com.exmaple.springboot.repository.ProfileRepository;
 import com.exmaple.springboot.service.ImageService;
 import com.exmaple.springboot.service.ProfileService;
 import com.exmaple.springboot.service.UserService;
