@@ -83,6 +83,16 @@
                 <artifactId>thymeleaf</artifactId>
                 <version>3.0.15.RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.15</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -122,6 +132,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot-starter-web.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter-web.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -157,6 +172,16 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>1.12.334</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.334</version>
         </dependency>
     </dependencies>
 
@@ -271,8 +296,6 @@
                                         <exclude>org.slf4j:slf4j-jdk14</exclude>
                                         <!-- Ensure only the slf4j binding for logback is on the classpath -->
                                         <exclude>log4j:log4j</exclude>
-                                        <!-- As recommended from the slf4j guide, exclude commons-logging -->
-                                        <exclude>commons-logging:commons-logging</exclude>
                                     </excludes>
                                 </bannedDependencies>
                             </rules>

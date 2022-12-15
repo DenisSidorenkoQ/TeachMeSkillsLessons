@@ -81,4 +81,12 @@ public class UserService {
     public User getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);
     }
+
+    public void changeUserPassword(int userId, String password) {
+        userRepository.changeUserPassword(userId, passwordEncoder.encode(password));
+    }
+
+    public void changeUserLogin(int userId, String login) {
+        userRepository.changeUserLogin(userId, login);
+    }
 }

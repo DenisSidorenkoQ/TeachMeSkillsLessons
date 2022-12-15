@@ -22,7 +22,8 @@ public class AuthorizationRestController {
     private final Jwt jwt;
 
     @PostMapping
-    protected AuthResultDto userAuthorization(@RequestBody final CredentialsDto credentials) throws CredentialNotFoundException {
+    protected AuthResultDto userAuthorization(@RequestBody final CredentialsDto credentials)
+            throws CredentialNotFoundException {
         String token;
         if (userService.isExists(credentials.getLogin(), credentials.getPassword())) {
             token = jwt.generateToken(credentials.getLogin());
