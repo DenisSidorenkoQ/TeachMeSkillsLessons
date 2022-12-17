@@ -1,0 +1,35 @@
+server:
+  port: 9090
+
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:35432/social_network
+
+salt: SALT
+
+aws:
+  region: "us-east-1"
+  s3:
+    endpoint: http://localhost:4566
+  image-placeholder-path: /static/images/Placeholder.png
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+feign:
+  client:
+    config:
+      domain:
+        connectTimeout: 5000
+        readTimeout: 3000
+
+services:
+  message:
+    url: 'http://localhost:9091'
