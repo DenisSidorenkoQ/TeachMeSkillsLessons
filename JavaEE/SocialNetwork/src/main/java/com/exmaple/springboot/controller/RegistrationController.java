@@ -1,6 +1,8 @@
 package com.exmaple.springboot.controller;
 
 import com.exmaple.springboot.dto.AuthorizationUserDto;
+import com.exmaple.springboot.service.ImageService;
+import com.exmaple.springboot.service.ProfileService;
 import com.exmaple.springboot.service.UserService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import javax.validation.Valid;
 public class RegistrationController {
     private final UserService userService;
     private final AuthorizedUser authorizedUser;
+    private final ProfileService profileService;
+    private final ImageService imageService;
 
     @GetMapping(path = "/registrationPage")
     protected String userRegistration(Model model) {
@@ -40,11 +44,13 @@ public class RegistrationController {
         String username = dto.getLogin();
         String password = dto.getPassword();
 
-
         if (userService.register(username, password)) {
             log.info("User does not exist, registering a new user. Login[{}]", username);
+
             authorizedUser.setUserId(userService.getUserIdByLogin(dto.getLogin()));
             authorizedUser.setLogin(username);
+
+            imageService.setPlaceholder(authorizedUser.getUserId());
             return "redirect:users";
         } else {
             log.info("User is already to exist. Login[{}]", username);
