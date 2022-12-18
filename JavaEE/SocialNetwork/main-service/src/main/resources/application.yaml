@@ -8,14 +8,14 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:35432/social_network
+    url: jdbc:postgresql://postgres:5432/social_network
 
 salt: SALT
 
 aws:
   region: "us-east-1"
   s3:
-    endpoint: http://localhost:4566
+    endpoint: http://LocalStack:4566
   image-placeholder-path: /static/images/Placeholder.png
 management:
   endpoints:
@@ -32,4 +32,4 @@ feign:
 
 services:
   message:
-    url: 'http://localhost:9091'
+    url: 'http://message-service:9091'
