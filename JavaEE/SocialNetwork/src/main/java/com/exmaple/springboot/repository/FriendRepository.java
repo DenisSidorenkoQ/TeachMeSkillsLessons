@@ -13,7 +13,7 @@ public interface FriendRepository extends Repository<User, Long> {
 
     @Modifying
     @Query("delete from friend " +
-            "where first_user_id = :userId " + "and second_user_id = :friendId " +
+            "where first_user_id = :userId and second_user_id = :friendId " +
             "or first_user_id = :friendId and second_user_id = :userId")
     boolean delFriend(@Param("userId") int userId, @Param("friendId") int friendId);
 }
