@@ -1,5 +1,6 @@
 package com.exmaple.springboot.controller;
 
+import com.exmaple.springboot.client.MessageClient;
 import com.exmaple.springboot.service.FriendService;
 import com.exmaple.springboot.session.AuthorizedUser;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FriendController {
     private final FriendService friendService;
     private final AuthorizedUser authorizedUser;
+    private final MessageClient messageClient;
 
     @PostMapping(path = "/deleteFriend")
     protected String deleteFriend(int friendId) {
+        messageClient.deleteMessage(friendId, authorizedUser.getUserId());
         friendService.delFriend(authorizedUser.getUserId(), friendId);
         log.info("Delete friend. Id=[{}]", friendId);
         return "redirect:friendList";

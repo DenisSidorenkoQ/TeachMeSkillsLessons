@@ -20,4 +20,8 @@ public class MessageService {
     public void saveMessage(int senderId, int recipientId, String text) {
         messageRepository.saveMessage(senderId, recipientId, text);
     }
+
+    public void delAllMessages(int userId, int friendId) {
+        messageRepository.delAllMessages(userId, friendId);
+    }
 }

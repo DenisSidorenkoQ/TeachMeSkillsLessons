@@ -22,11 +22,17 @@ public class MessageRestController {
         return messageService.getMessages(userId, friendId);
     }
 
-    @PostMapping(path = "/send-message/{friendId}")
+    @PostMapping(path = "/message/send/{friendId}")
     protected void sendMessage(@PathVariable int friendId,
                                @RequestParam String message,
                                @RequestParam int userId) {
         messageService.saveMessage(userId, friendId, message);
+    }
+
+    @PostMapping(path = "/message/delete/{friendId}")
+    protected void deleteMessage(@PathVariable int friendId,
+                               @RequestParam int userId) {
+        messageService.delAllMessages(userId, friendId);
     }
 
 }

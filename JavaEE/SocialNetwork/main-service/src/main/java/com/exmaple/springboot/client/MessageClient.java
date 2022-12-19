@@ -16,8 +16,12 @@ public interface MessageClient {
                                     @RequestParam("userId") final int userId);
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/send-message/{friendId}")
+    @RequestMapping(method = RequestMethod.POST, value = "/message/send/{friendId}")
     void sendMessage(@PathVariable("friendId") final int friendId,
                      @RequestParam("message") String message,
+                     @RequestParam("userId") int userId);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/message/delete/{friendId}")
+    void deleteMessage(@PathVariable("friendId") final int friendId,
                      @RequestParam("userId") int userId);
 }
