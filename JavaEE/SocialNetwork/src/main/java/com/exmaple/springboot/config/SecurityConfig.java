@@ -25,8 +25,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(requests -> requests
-                        .antMatchers("/*", "/api/v1/auth", "/profile/**", "/static/images/*").permitAll()
-                        .antMatchers("/api/v1/users").hasAnyRole("USER")
+                        .antMatchers("/*", "/api/v1/auth", "/profile/**", "/static/images/*", "/api/v1/users").permitAll()
+//                        .antMatchers("/api/v1/users").hasAnyRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
