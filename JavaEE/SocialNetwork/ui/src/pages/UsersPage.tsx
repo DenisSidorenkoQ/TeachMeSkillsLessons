@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {DataGrid, GridColDef, GridValueGetterParams} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
 import {User} from "../model/UserState";
 import sessionService from "../service/UserService";
@@ -7,27 +7,26 @@ import {useEffect, useState} from "react";
 
 const UsersPage = () => {
     const columns: GridColDef[] = [
-        { field: 'userId', headerName: 'ID', width: 400 },
-        { field: 'login', headerName: 'Login', width: 400 }
+        { field: 'userId', headerName: 'ID', width: 300 },
+        { field: 'login', headerName: 'Login', width: 300 }
     ];
 
-    let ff: User[] = [];
+    const [subjectList, setSubjectList] = React.useState<User[]>([]);
 
     useEffect(() => {
-        let userList: User[] = [];
-        sessionService.getSession().then(users => users.forEach(user => userList.push(user)));
-        console.log(userList);
-        ff = userList;
+        sessionService.getSession().then(users => setSubjectList(users));
     }, []);
+
+    console.log(subjectList);
 
     return (
         <Box sx={{ height: 800, width: '50%' }}>
             <DataGrid
-                rows={ff}
+                getRowId={(row: any) =>  row.userId}
+                rows={subjectList}
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
                 disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
             />
