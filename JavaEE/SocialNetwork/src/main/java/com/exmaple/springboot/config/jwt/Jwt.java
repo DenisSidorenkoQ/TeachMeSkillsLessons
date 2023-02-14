@@ -21,7 +21,6 @@ public class Jwt {
     @Value("${salt}")
     private String jwtSecret;
 
-
     public String generateToken(String login) {
         Date date = Date.from(LocalDateTime.now().plusMinutes(15).atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
