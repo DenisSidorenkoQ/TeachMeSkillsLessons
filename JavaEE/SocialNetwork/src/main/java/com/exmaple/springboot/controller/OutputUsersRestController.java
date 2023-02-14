@@ -27,3 +27,4 @@ public class OutputUsersRestController {
         return userConverter.toDto(users);
     }
 }
+
